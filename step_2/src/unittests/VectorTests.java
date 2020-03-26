@@ -8,6 +8,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
+ * 
+ * Unit tests for primitives.Vector class
+ * 
  * @author ayala
  *
  */

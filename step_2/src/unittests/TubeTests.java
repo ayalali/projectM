@@ -8,18 +8,18 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for geometries.Plane class
+ * Unit tests for geometries.Tube class
  * 
  * @author ayala
  *
  */
-public class PlaneTests {
+public class TubeTests {
 
 	/**
-	 * Test method for {@link geometries.Plane#getNormal(primitives.Point3D)}.
+	 * Test method for {@link geometries.Tube#getNormal(primitives.Point3D)}.
 	 */
 	@Test
-	public void testGetNormalPoint3D() {
+	public void testGetNormal() {
 		fail("Not yet implemented");
 	}
 
