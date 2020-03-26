@@ -53,6 +53,7 @@ public class Tube extends RadialGeometry{
 	 */
     @Override
     public Vector getNormal(Point3D p) {
+   
     	Point3D p0 = _axisRay.get_point();
     	Vector v = _axisRay.get_direction();
     	//t = v (P – P0)
