@@ -1,5 +1,5 @@
 package geometries;
-
+import static primitives.Util.*;
 import primitives.*;
 
 /**
@@ -42,12 +42,27 @@ public class Tube extends RadialGeometry{
 	
 	/**
 	 *@return vertical vector to the tube on the 3D point p
+	 *
+	 *
+	 *n = normalize(P - O)
+	 *O is projection of P on cylinder's ray:
+	 *t = v (P – P0)
+	 *O = P0 + tv
+	 *
+	 *
 	 */
-	@Override
-	public Vector getNormal(Point3D p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+    @Override
+    public Vector getNormal(Point3D p) {
+    	Point3D p0 = _axisRay.get_point();
+    	Vector v = _axisRay.get_direction();
+    	//t = v (P – P0)
+    	double t = p.subtract(p0).dotProduct(v);
+    	// O = P0 + tv
+    	Point3D o=null;
+    	if (!isZero(t))// if it's close to 0, we'll get ZERO vector exception
+        o = p0.add(v.scale(t));
+    	Vector n = p.subtract(o).normalize();
+    	return n;
+    }
 	
 }
