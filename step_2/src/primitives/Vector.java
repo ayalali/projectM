@@ -13,13 +13,13 @@ public class Vector
 {
 	
 	/**
-	 * diretion of the vector, where is he header
+	 * direction of the vector, where is he header
 	 */
 	Point3D _head;
 	
 	
 	/**
-	 * @param head diretion of the vector, where is he header
+	 * @param head direction of the vector, where is he header
 	 * 
 	 * Point3D format
 	 */
