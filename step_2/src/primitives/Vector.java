@@ -4,7 +4,7 @@ package primitives;
  * Vector presents a vector in 3D cartesian coordinate system
  * 
  * 
- * @author ayala
+ * @author ayala and naama
  *
  */
 public class Vector 
@@ -24,7 +24,7 @@ public class Vector
 	public Vector(Point3D head)
 	{
 		_head = new Point3D(head);
-		if (head == new Point3D(new Coordinate(0),new Coordinate(0),new Coordinate(0))) {
+		if (head.equals(new Point3D(new Coordinate(0),new Coordinate(0),new Coordinate(0)))) {
 			throw new IllegalArgumentException("you cant create a zero vector.");
 		}
 	}
@@ -34,6 +34,9 @@ public class Vector
 	public Vector(Vector v)
 	{
 		_head = new Point3D(v._head);
+		if (v.equals(new Vector(new Coordinate(0),new Coordinate(0),new Coordinate(0)))) {
+			throw new IllegalArgumentException("you cant create a zero vector.");
+		}
 	}
 	/**
 	 * @param a first coordinate of the vector
@@ -43,6 +46,9 @@ public class Vector
 	public Vector(double a, double b, double c)
 	{
 		this._head = new Point3D(new Coordinate(a), new Coordinate(b), new Coordinate(c));
+		if (a==0 && b==0 && c==0) {
+			throw new IllegalArgumentException("you cant create a zero vector.");
+		}
 	}
 	/**
 	 * @param a first coordinate of the vector
@@ -158,29 +164,55 @@ public class Vector
 		return new Vector (new Point3D(new Coordinate(i), new Coordinate(j), new Coordinate(k)));
 	}
 	
+	/**
+	 * @return power length of the vector(a,b,c)
+	 *
+	 *
+	 *lengthSquared = a^2 + b^2 + c^2
+	 *
+	 */
 	public double lengthSquared() 
 	{
 		return (_head.get_x().get()*_head.get_x().get() + _head.get_y().get()*_head.get_y().get() + _head.get_z().get()*_head.get_z().get());
 	}
 	
+	/**
+	 * @return length of this vector(a,b,c), using lengthSquared function
+	 *
+	 *length = sqrt[(a^2 + b^2 + c^2)]
+	 *
+	 */
 	public double length()
 	{
 		return Math.sqrt(this.lengthSquared());
 	}
 	
+	/**
+	 * @return this vector(a,b,c) nomalize, length = 1
+	 *
+	 *normalize = 1/length(a,b,c)
+	 *
+	 */
 	public Vector normalize()
 	{
-		double l = length();
-		this.scale(1/l);
+		double l = this.length();
+		this._head = new Point3D(this.scale(1/l)._head);
 		return this;
 	}
 	
+	/**
+	 * @return other vector(a,b,c) normalized, length = 1
+	 *using normalize
+	 */
 	public Vector normalized()
 	{
 		Vector help = new Vector(this);
 		return help.normalize();
 	}
 	
+	/**
+	 * @return direction of the vector, where he headed
+	 */
 	public Point3D get_head() {
 		return new Point3D(_head);
 	}
