@@ -1,4 +1,6 @@
 package primitives;
+//cool comment
+
 
 /**
  * Vector presents a vector in 3D cartesian coordinate system
