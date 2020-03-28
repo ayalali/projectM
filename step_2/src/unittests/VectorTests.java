@@ -34,7 +34,7 @@ public class VectorTests {
 	public void testAdd() {
 		Vector v1 = new Vector(1, 2, 3);
 	    Vector v2 = new Vector(-2, -4, -6);
-	    assertTrue("ERROR: subtruct() wrong value", v1.add(v2).lengthSquared() == 14);
+	    assertTrue("ERROR: add() wrong value", v1.add(v2).lengthSquared() == 14);
 	}
 
 	/**
@@ -104,8 +104,8 @@ public class VectorTests {
 	public void testLength() {
 		Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(0, 3, 4);
-        assertTrue("ERROR: lengthSquared() wrong value", isZero(v1.length() - Math.sqrt(14)));
-        assertTrue("ERROR: lengthSquared() wrong value", isZero(v2.length() - Math.sqrt(25)));
+        assertTrue("ERROR: length() wrong value", isZero(v1.length() - Math.sqrt(14)));
+        assertTrue("ERROR: length() wrong value", isZero(v2.length() - Math.sqrt(25)));
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class VectorTests {
 	public void testNormalized() {
 		Vector v = new Vector(1, 2, 3);
 		Vector u = v.normalized();
-		assertNotEquals("ERROR: normalizated() function does not create a new vector",u,v);
+		assertNotEquals("ERROR: normalizaed() function does not create a new vector",u,v);
 	}
 
 }

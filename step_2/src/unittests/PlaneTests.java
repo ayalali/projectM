@@ -28,7 +28,7 @@ public class PlaneTests {
 		// ============ Equivalence Partitions Tests ==============
 		
 		Plane plane = new Plane(new Point3D(1,2,3), new Vector(new Point3D(1, 3, 0)));
-		assertEquals("ERROR: Plane.getNormal() wrong value", new Vector(new Point3D(1, 3, 0)).normalize(), plane.getNormal(new Point3D(1,2,3)).normalize());
+		assertEquals("ERROR: PlaneTests.getNormal() wrong value", new Vector(new Point3D(1, 3, 0)).normalize(), plane.getNormal(new Point3D(1,2,3)).normalize());
 		
 	}
 

@@ -27,6 +27,8 @@ public class TubeTests {
 	@Test
 	public void testGetNormal() {
 		
+		// ============ Equivalence Partitions Tests ==============
+		
 		Vector n = null;
 		Point3D p = new Point3D(6, 7, 8);
 		Point3D p0 = new Point3D(1, 2, 3);
@@ -42,7 +44,7 @@ public class TubeTests {
     		o = p0.add(v.scale(t));
     		n = p.subtract(o).normalize();
         }
-    	assertEquals("", n, tube.getNormal(p));
+    	assertEquals("ERROR: TubeTests.getNormal() wrong value", n, tube.getNormal(p));
 	}
 
 }

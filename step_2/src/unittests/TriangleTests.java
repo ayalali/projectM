@@ -31,7 +31,7 @@ public class TriangleTests {
 		Vector v2 = new Vector(p3.subtract(p1)); //p1->p3
 		Triangle triangle = new Triangle(p1, p2, p3);
 		Vector v3 = new Vector(v1.crossProduct(v2)); //expected
-		assertEquals("ERROR: Triangle.getNormal() wrong value", v3, triangle.getNormal(p1));
+		assertEquals("ERROR: TriangleTests.getNormal() wrong value", v3, triangle.getNormal(p1));
 		
 	}
 
