@@ -12,7 +12,7 @@ import static primitives.Util.*;
  * 
  * Unit tests for primitives.Vector class
  * 
- * @author ayala
+ * @author ayala and naama
  *
  */
 public class VectorTests {
@@ -24,8 +24,7 @@ public class VectorTests {
 	public void testSubtract() {
 		 Vector v1 = new Vector(1, 2, 3);
 	     Vector v2 = new Vector(-2, -4, -6);
-	     assertTrue("ERROR: subtruct() for equals vectors is not zero", v1.subtract(v1).lengthSquared() != 0);
-	     assertTrue("ERROR: subtruct() wrong value", v1.subtract(v2).lengthSquared() != 126);
+	     assertTrue("ERROR: subtruct() wrong value", v1.subtract(v2).lengthSquared() == 126);
 	}
 
 	/**
@@ -33,7 +32,9 @@ public class VectorTests {
 	 */
 	@Test
 	public void testAdd() {
-		fail("Not yet implemented");
+		Vector v1 = new Vector(1, 2, 3);
+	    Vector v2 = new Vector(-2, -4, -6);
+	    assertTrue("ERROR: subtruct() wrong value", v1.add(v2).lengthSquared() == 14);
 	}
 
 	/**
@@ -41,7 +42,8 @@ public class VectorTests {
 	 */
 	@Test
 	public void testScale() {
-		fail("Not yet implemented");
+		Vector v1 = new Vector(1, 2, 3);
+		assertTrue("ERROR: scale() wrong value",v1.scale(3).lengthSquared() == 126);
 	}
 
 	/**
@@ -52,8 +54,8 @@ public class VectorTests {
 		 Vector v1 = new Vector(1, 2, 3);
 	     Vector v2 = new Vector(-2, -4, -6);
 	     Vector v3 = new Vector(0, 3, -2);
-	     assertTrue("ERROR: dotProduct() for orthogonal vectors is not zero", !isZero(v1.dotProduct(v3)));
-	     assertTrue("ERROR: dotProduct() wrong value", !isZero(v1.dotProduct(v2) + 28));
+	     assertTrue("ERROR: dotProduct() for orthogonal vectors is not zero", isZero(v1.dotProduct(v3)));
+	     assertTrue("ERROR: dotProduct() wrong value", isZero(v1.dotProduct(v2) + 28));
 	}
 
 	/**
@@ -91,8 +93,8 @@ public class VectorTests {
 	public void testLengthSquared() {
 		Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(0, 3, 4);
-        assertTrue("ERROR: lengthSquared() wrong value", !isZero(v1.lengthSquared() - 14));
-        assertTrue("ERROR: lengthSquared() wrong value", !isZero(v2.lengthSquared() - 25));
+        assertTrue("ERROR: lengthSquared() wrong value", isZero(v1.lengthSquared() - 14));
+        assertTrue("ERROR: lengthSquared() wrong value", isZero(v2.lengthSquared() - 25));
 	}
 
 	/**
@@ -102,8 +104,8 @@ public class VectorTests {
 	public void testLength() {
 		Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(0, 3, 4);
-        assertTrue("ERROR: lengthSquared() wrong value", !isZero(v1.length() - Math.sqrt(14)));
-        assertTrue("ERROR: lengthSquared() wrong value", !isZero(v2.length() - Math.sqrt(25)));
+        assertTrue("ERROR: lengthSquared() wrong value", isZero(v1.length() - Math.sqrt(14)));
+        assertTrue("ERROR: lengthSquared() wrong value", isZero(v2.length() - Math.sqrt(25)));
 	}
 
 	/**
@@ -111,7 +113,11 @@ public class VectorTests {
 	 */
 	@Test
 	public void testNormalize() {
-		fail("Not yet implemented");
+		Vector v = new Vector(1, 2, 3);
+        Vector vCopy = new Vector(v);
+        Vector vCopyNormalize = vCopy.normalize();
+        assertTrue("ERROR: normalize() function creates a new vector",vCopy == vCopyNormalize);
+        assertTrue("ERROR: normalize() result is not a unit vector",isZero(vCopyNormalize.length() - 1));
 	}
 
 	/**
@@ -119,7 +125,9 @@ public class VectorTests {
 	 */
 	@Test
 	public void testNormalized() {
-		fail("Not yet implemented");
+		Vector v = new Vector(1, 2, 3);
+		Vector u = v.normalized();
+		assertNotEquals("ERROR: normalizated() function does not create a new vector",u,v);
 	}
 
 }
