@@ -103,6 +103,10 @@ public class Vector
 	 */
 	public Vector subtract(Vector v)
 	{
+		if(_head.get_x().get()==v.get_head().get_x().get()&&_head.get_y().get()==v.get_head().get_y().get()&&_head.get_z().get()==v.get_head().get_z().get())
+		{
+			throw new IllegalArgumentException("You can't subtract a vector by itself.");
+		}
 		return new Vector(_head.get_x().get()-v.get_head().get_x().get(),_head.get_y().get()-v.get_head().get_y().get(),_head.get_z().get()-v.get_head().get_z().get());
 	}
 	
@@ -116,6 +120,10 @@ public class Vector
 	 */
 	public Vector add(Vector v)
 	{
+		if(_head.get_x().get()==-v.get_head().get_x().get()&&_head.get_y().get()==-v.get_head().get_y().get()&&_head.get_z().get()==-v.get_head().get_z().get())
+		{
+			throw new IllegalArgumentException("You can't add those vectors.");
+		}
 		return new Vector(_head.get_x().get()+v.get_head().get_x().get(),_head.get_y().get()+v.get_head().get_y().get(),_head.get_z().get()+v.get_head().get_z().get());
 	}
 	
@@ -129,6 +137,10 @@ public class Vector
 	 */
 	public Vector scale(double t)
 	{
+		if(t == 0)
+		{
+			throw new IllegalArgumentException("You can't multiply by 0.");
+		}
 		return new Vector(_head.get_x().get()*t,_head.get_y().get()*t,_head.get_z().get()*t);
 	}
 	
