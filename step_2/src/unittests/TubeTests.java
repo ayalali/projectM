@@ -35,7 +35,7 @@ public class TubeTests {
 		Tube tube = new Tube(5, ray);
     	//t = v (P – P0)
     	double t = p.subtract(p0).dotProduct(v);
-    	// O = P0 + tv
+    	// O = P0 + tv.
     	Point3D o = null;
     	if (!isZero(t))// if it's close to 0, we'll get ZERO vector exception
         {
