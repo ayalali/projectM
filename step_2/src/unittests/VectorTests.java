@@ -22,7 +22,10 @@ public class VectorTests {
 	 */
 	@Test
 	public void testSubtract() {
-		fail("Not yet implemented");
+		 Vector v1 = new Vector(1, 2, 3);
+	     Vector v2 = new Vector(-2, -4, -6);
+	     assertTrue("ERROR: subtruct() for equals vectors is not zero", v1.subtract(v1).lengthSquared() != 0);
+	     assertTrue("ERROR: subtruct() wrong value", v1.subtract(v2).lengthSquared() != 126);
 	}
 
 	/**
@@ -46,7 +49,11 @@ public class VectorTests {
 	 */
 	@Test
 	public void testDotProduct() {
-		fail("Not yet implemented");
+		 Vector v1 = new Vector(1, 2, 3);
+	     Vector v2 = new Vector(-2, -4, -6);
+	     Vector v3 = new Vector(0, 3, -2);
+	     assertTrue("ERROR: dotProduct() for orthogonal vectors is not zero", !isZero(v1.dotProduct(v3)));
+	     assertTrue("ERROR: dotProduct() wrong value", !isZero(v1.dotProduct(v2) + 28));
 	}
 
 	/**
@@ -82,7 +89,10 @@ public class VectorTests {
 	 */
 	@Test
 	public void testLengthSquared() {
-		fail("Not yet implemented");
+		Vector v1 = new Vector(1, 2, 3);
+        Vector v2 = new Vector(0, 3, 4);
+        assertTrue("ERROR: lengthSquared() wrong value", !isZero(v1.lengthSquared() - 14));
+        assertTrue("ERROR: lengthSquared() wrong value", !isZero(v2.lengthSquared() - 25));
 	}
 
 	/**
@@ -90,7 +100,10 @@ public class VectorTests {
 	 */
 	@Test
 	public void testLength() {
-		fail("Not yet implemented");
+		Vector v1 = new Vector(1, 2, 3);
+        Vector v2 = new Vector(0, 3, 4);
+        assertTrue("ERROR: lengthSquared() wrong value", !isZero(v1.length() - Math.sqrt(14)));
+        assertTrue("ERROR: lengthSquared() wrong value", !isZero(v2.length() - Math.sqrt(25)));
 	}
 
 	/**
