@@ -60,9 +60,12 @@ public class Tube extends RadialGeometry{
     	double t = p.subtract(p0).dotProduct(v);
     	// O = P0 + tv
     	Point3D o=null;
-    	if (!isZero(t))// if it's close to 0, we'll get ZERO vector exception
-        o = p0.add(v.scale(t));
-    	Vector n = p.subtract(o).normalize();
+    	if (isZero(t))// if it's close to 0, we'll get ZERO vector exception
+        {
+    		throw new IllegalArgumentException("ERROR: Tube.getNormal: t is zero");
+        }
+    	o = p0.add(v.scale(t));
+		Vector n = p.subtract(o).normalize();
     	return n;
     }
 	
