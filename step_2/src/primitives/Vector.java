@@ -8,6 +8,7 @@ package primitives;
  * @author ayala and naama
  *
  */
+
 public class Vector 
 {
 	
