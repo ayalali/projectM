@@ -35,10 +35,11 @@ public class Vector
 	 */
 	public Vector(Vector v)
 	{
-		_head = new Point3D(v._head);
 		if (v.equals(new Vector(new Coordinate(0),new Coordinate(0),new Coordinate(0)))) {
 			throw new IllegalArgumentException("you cant create a zero vector.");
 		}
+		_head = new Point3D(v._head);
+
 	}
 	/**
 	 * @param a first coordinate of the vector

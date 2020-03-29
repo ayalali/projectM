@@ -4,6 +4,7 @@
 package unittests;
 
 import static org.junit.Assert.*;
+import static java.lang.System.out;
 import static primitives.Util.isZero;
 
 import org.junit.Test;
@@ -44,6 +45,8 @@ public class TubeTests {
     		o = p0.add(v.scale(t));
     		n = p.subtract(o).normalize();
         }
+    	out.println(n);
+    	out.println(tube.getNormal(p));
     	assertEquals("ERROR: TubeTests.getNormal() wrong value", n, tube.getNormal(p));
 	}
 

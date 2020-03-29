@@ -6,7 +6,7 @@ import primitives.Point3D;
  * 
  * Triangle represents a two-dimensional triangle in 3D Cartesian coordinate
  * 
- * @author ayala
+ * @author ayala and naama
  *
  */
 public class Triangle extends Polygon {

@@ -10,6 +10,7 @@ import primitives.Util;
 import primitives.Vector;
 
 import org.junit.Test;
+import static java.lang.System.out;
 
 /**
  * Unit tests for geometries.Triangle class
@@ -31,6 +32,7 @@ public class TriangleTests {
 		Vector v2 = new Vector(p3.subtract(p1)); //p1->p3
 		Triangle triangle = new Triangle(p1, p2, p3);
 		Vector v3 = new Vector(v1.crossProduct(v2)); //expected
+		v3.normalize();
 		assertEquals("ERROR: TriangleTests.getNormal() wrong value", v3, triangle.getNormal(p1));
 		
 	}
