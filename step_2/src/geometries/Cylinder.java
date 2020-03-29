@@ -1,5 +1,7 @@
 package geometries;
 
+import static primitives.Util.isZero;
+
 import primitives.*;
 
 /**
@@ -47,8 +49,31 @@ public class Cylinder extends Tube{
 	 */
 	@Override
 	public Vector getNormal(Point3D p) {
-		// TODO Auto-generated method stub
-		return null;
+		Vector n = null;
+		if(p.distance(this.get_axisRay().get_point())<this.get_radius())
+		{
+			n = new Vector(p.add(this.get_axisRay().get_direction()));
+		}
+		else if(p.distance(this.get_axisRay().get_point().add(this.get_axisRay().get_direction().scale(_height)))<this.get_radius()) 
+		{
+			n = new Vector(p.add(this.get_axisRay().get_direction()));
+		}
+		else
+		{
+			Point3D p0 = this.get_axisRay().get_point();
+	    	Vector v = this.get_axisRay().get_direction();
+	    	//t = v (P – P0)
+	    	double t = p.subtract(p0).dotProduct(v);
+	    	// O = P0 + tv.
+	    	Point3D o=null;
+	    	if (isZero(t))// if it's close to 0, we'll get ZERO vector exception
+	        {
+	    		throw new IllegalArgumentException("ERROR: Tube.getNormal: t is zero");
+	        }
+	    	o = p0.add(v.scale(t));
+			n = p.subtract(o).normalize();
+		}
+		return new Vector(n);
 	}
 
 
