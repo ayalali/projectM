@@ -30,7 +30,7 @@ public class SphereTests {
 		Point3D p = new Point3D(1, 0, -5);
 		Point3D otherP = new Point3D(4, 3, -2);
 		Sphere sphere = new Sphere(3, p);
-		Vector vector = new Vector(otherP.subtract(p)).normalize();
+		Vector vector = new Vector(new Point3D(3, 3, 3)).normalize();
 		assertEquals("ERROR: SphereTests.getNormal() wrong value", vector, sphere.getNormal(otherP));
 	}
 

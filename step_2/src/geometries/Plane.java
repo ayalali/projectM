@@ -66,7 +66,7 @@ public class Plane implements Geometry {
 	 */
 	@Override
 	public Vector getNormal(Point3D p) {
-		return new Vector(_normal);
+		return new Vector(_normal).normalize();
 	}
 
 }

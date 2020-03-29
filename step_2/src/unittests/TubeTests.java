@@ -32,22 +32,17 @@ public class TubeTests {
 		
 		Vector n = null;
 		Point3D p = new Point3D(6, 7, 8);
-		Point3D p0 = new Point3D(1, 2, 3);
-		Vector v = new Vector(new Point3D(-5, 0, -2));
+		Point3D p0 = new Point3D(1, 2, 3); //Tube Ray's point
+		Vector v = new Vector(new Point3D(-5, 0, -2)).normalize();//Tube Ray's vector
 		Ray ray = new Ray(p0, v);
 		Tube tube = new Tube(5, ray);
     	//t = v (P – P0)
     	double t = p.subtract(p0).dotProduct(v);
     	// O = P0 + tv.
     	Point3D o = null;
-    	if (!isZero(t))// if it's close to 0, we'll get ZERO vector exception
-        {
-    		o = p0.add(v.scale(t));
-    		n = p.subtract(o).normalize();
-        }
-    	out.println(n);
-    	out.println(tube.getNormal(p));
+    	o = p0.add(v.scale(t));
+    	//n = p - o
+    	n = p.subtract(o).normalize();
     	assertEquals("ERROR: TubeTests.getNormal() wrong value", n, tube.getNormal(p));
 	}
-
 }

@@ -105,11 +105,15 @@ public class Vector
 	 */
 	public Vector subtract(Vector v)
 	{
-		if(_head.get_x().get()==v.get_head().get_x().get()&&_head.get_y().get()==v.get_head().get_y().get()&&_head.get_z().get()==v.get_head().get_z().get())
+		if(_head.get_x().get()==v.get_head().get_x().get()&&
+		   _head.get_y().get()==v.get_head().get_y().get()&&
+		   _head.get_z().get()==v.get_head().get_z().get())
 		{
 			throw new IllegalArgumentException("You can't subtract a vector by itself.");
 		}
-		return new Vector(_head.get_x().get()-v.get_head().get_x().get(),_head.get_y().get()-v.get_head().get_y().get(),_head.get_z().get()-v.get_head().get_z().get());
+		return new Vector(_head.get_x().get()-v.get_head().get_x().get(),
+				          _head.get_y().get()-v.get_head().get_y().get(),
+				          _head.get_z().get()-v.get_head().get_z().get());
 	}
 	
 	/**
@@ -156,7 +160,9 @@ public class Vector
 	 */
 	public double dotProduct(Vector vector)
 	{
-		return (this._head.get_x().get() * vector._head.get_x().get() + this._head.get_y().get() * vector._head.get_y().get() + this._head.get_z().get() * vector._head.get_z().get());
+		return (this._head.get_x().get() * vector._head.get_x().get() + 
+				this._head.get_y().get() * vector._head.get_y().get() + 
+				this._head.get_z().get() * vector._head.get_z().get());
 	}
 	
 	/**
