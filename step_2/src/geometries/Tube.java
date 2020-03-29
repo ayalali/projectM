@@ -1,4 +1,5 @@
 package geometries;
+import static java.lang.System.out;
 import static primitives.Util.*;
 import primitives.*;
 
@@ -65,8 +66,7 @@ public class Tube extends RadialGeometry{
     		throw new IllegalArgumentException("ERROR: Tube.getNormal: t is zero");
         }
     	o = p0.add(v.scale(t));
-		Vector n = p.subtract(o).normalize();
+    	Vector n = p.subtract(o).normalize();
     	return n;
     }
-	
 }
