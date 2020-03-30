@@ -2,11 +2,23 @@ import primitives.*;
 import static java.lang.System.out;
 import static primitives.Util.*;
 
+
+/**
+ * @author ayala and naama
+ * 
+ * Ayala Dvir - 211762885
+ * ayaladvir123@gmail.com
+ * 
+ * Naama Kenigsbuch - 212733661
+ * naama.kenigsbuch@gmail.com
+ */
+
 /**
  * Test program for the 1st stage
  *
  * @author Dan Zilberstein
  */
+
 public final class Main {
 
     /**
