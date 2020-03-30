@@ -17,7 +17,7 @@ import primitives.Vector;
 /**
  * Unit tests for geometries.Tube class
  * 
- * @author ayala
+ * @author ayala and naama
  *
  */
 public class TubeTests {

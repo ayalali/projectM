@@ -15,7 +15,7 @@ import static java.lang.System.out;
 /**
  * Unit tests for geometries.Triangle class
  * 
- * @author ayala
+ * @author ayala and naama
  *
  */
 public class TriangleTests {

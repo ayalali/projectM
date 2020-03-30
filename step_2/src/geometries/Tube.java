@@ -7,7 +7,7 @@ import primitives.*;
  * Tube represents a 3D tube by ray and radius.
  * 
  * 
- * @author ayala
+ * @author ayala ana naama
  *
  */
 public class Tube extends RadialGeometry{

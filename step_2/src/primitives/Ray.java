@@ -1,38 +1,66 @@
 package primitives;
 
 
+/**
+ * Ray class represent ray which is a point and direction vector.
+ * 
+ * @author ayala and naama
+ *
+ */
 public class Ray 
 {
-	//fields
+	
+	/**
+	 * The head of the ray
+	 */
 	Point3D _point;
+	
+	/**
+	 * The direction of the ray
+	 */
 	Vector _direction;
 	
-	//constructors
+	/**
+	 * Ray constructor based on Point3D and Vector
+	 * 
+	 * @param _point the head of the ray
+	 * @param _direction the direction of the ray
+	 */
 	public Ray(Point3D _point, Vector _direction) 
 	{
 		this._point = new Point3D(_point);
 		this._direction = new Vector(_direction.normalized());
 	}
 	
+	/**
+	 * Ray's copy constructor
+	 * 
+	 * @param r Ray
+	 */
 	public Ray(Ray r)
 	{
 		this._point = new Point3D(r._point);
 		this._direction = new Vector(r._direction);
 	}
 	
-	//get
+
+	/**
+	 * @return the head of the ray
+	 */
 	public Point3D get_point() 
 	{
 		return new Point3D(_point);
 	}
 	
+	/**
+	 * @return the direction of the ray
+	 */
 	public Vector get_direction() 
 	{
 		return new Vector(_direction);
 	}
 	
 	
-	//equals
 	public boolean equals(Object obj) 
 	{
 		if (this == obj)
@@ -54,8 +82,7 @@ public class Ray
 			return false;
 		return true;
 	}
-
-	//toString
+	
 	public String toString() 
 	{
 		return "Ray [_point=" + _point + ", _direction=" + _direction + "]";

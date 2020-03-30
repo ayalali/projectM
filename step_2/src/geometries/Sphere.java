@@ -5,7 +5,7 @@ import primitives.*;
 /**
  * Sphere represents a 3D sphere, that is a redial geometry.
  * 
- * @author ayala
+ * @author ayala and naama
  *
  */
 public class Sphere extends RadialGeometry{
