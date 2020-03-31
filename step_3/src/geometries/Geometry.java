@@ -10,7 +10,7 @@ import primitives.*;
  * @author ayala and naama
  *
  */
-public interface Geometry {
+public interface Geometry extends Intersectable {
 
 	/**
 	 * @param p = point on the geometry.

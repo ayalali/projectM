@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.*;
 
 /**
@@ -67,6 +69,12 @@ public class Plane implements Geometry {
 	@Override
 	public Vector getNormal(Point3D p) {
 		return new Vector(_normal).normalize();
+	}
+
+	@Override
+	public List<Point3D> findIntersections(Ray r) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
