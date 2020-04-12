@@ -54,6 +54,13 @@ public class Sphere extends RadialGeometry{
 	}
 
 	
+	/**
+	 *
+	 *
+	 *
+	 *
+	 *
+	 */
 	@Override
 	public List<Point3D> findIntersections(Ray r) {
 		ArrayList<Point3D> lst = new ArrayList<Point3D>();
