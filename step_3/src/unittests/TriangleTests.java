@@ -4,8 +4,13 @@
 package unittests;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import geometries.Triangle;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Util;
 import primitives.Vector;
 
@@ -21,7 +26,7 @@ import static java.lang.System.out;
 public class TriangleTests {
 
 	@Test
-	public void test() {
+	public void normalTest() {
 		
 		// ============ Equivalence Partitions Tests ==============
 		
@@ -36,6 +41,53 @@ public class TriangleTests {
 		assertEquals("ERROR: TriangleTests.getNormal() wrong value", v3, triangle.getNormal(p1));
 		
 	}
+	
+	@Test
+    public void findIntersectionsTest() 
+	{
+		Triangle triangle = new Triangle(new Point3D(1,0,0), new Point3D(3,0,0), new Point3D(2,1,0));
+		
+        // ============ Equivalence Partitions Tests ==============
 
+        // TC01: Ray starts before and crosses the triangle (1 point)
+		
+		List<Point3D> result = triangle.findIntersections(new Ray(new Point3D(2, 0.5, 1),new Vector(new Point3D(0,0,-1))));
+        assertEquals("uncorrect values",List.of(new Point3D(2,0.5,0)), result);
+        
+        // TC02: Ray does not crosses the triangle (0 points)
+        
+        result = triangle.findIntersections(new Ray(new Point3D(0,1,-0.5),new Vector(new Point3D(-1,0,0))));
+        assertNull("Ray does not crosses the triangle", result);
+        
+		// TC03: Ray intersects the plane but not the triangle (0 points)
+        
+        result = triangle.findIntersections(new Ray(new Point3D(-3, 1, 1),new Vector(new Point3D(0,0,1))));
+        assertNull("Ray does not crosses the triangle", result);
+        
+		// TC04: Ray starts after the triangle (0 points)
+        
+        result = triangle.findIntersections(new Ray(new Point3D(2,0,1),new Vector(new Point3D(1,0,0))));
+        assertNull("Ray does not crosses the triangle", result);
+
+        // =============== Boundary Values Tests ==================
+
+        // TC11: Ray starts at triangle and goes outside (0 points)
+        
+        result = triangle.findIntersections(new Ray(new Point3D(1,0,0),new Vector(new Point3D(0,0,1))));
+        assertNull("Ray does not crosses the triangle", result);
+        
+        // TC12: Ray starts at triangle and merging in triangle (0 points)
+        
+        result = triangle.findIntersections(new Ray(new Point3D(2,0,0),new Vector(new Point3D(1,0,0))));
+        assertNull("Ray does not crosses the triangle", result);
+        
+        // TC12: Ray's line is tangent to the triangle (0 points)
+        
+        result = triangle.findIntersections(new Ray(new Point3D(0.5,0,0),new Vector(new Point3D(1,0,0))));
+        assertNull("Ray does not crosses the triangle", result);
+
+		
+	}
+	
 }
 
