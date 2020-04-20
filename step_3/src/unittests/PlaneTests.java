@@ -77,6 +77,5 @@ public class PlaneTests {
         
         // TC20: Ray begins in the same point which appears as reference point in the plane (Q)
         assertNull("Ray starts in the plane",plane.findIntersections(new Ray(new Point3D(0,0,0),new Vector(1,1,0))));
-
 	}
 }

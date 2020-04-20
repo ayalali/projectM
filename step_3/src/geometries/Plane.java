@@ -88,5 +88,4 @@ public class Plane implements Geometry {
 
         return t <= 0 ? null : List.of(r.getTargetPoint(t));
     }
-
 }

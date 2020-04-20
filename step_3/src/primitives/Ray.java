@@ -90,7 +90,6 @@ public class Ray
 	}
 	
 	 /**
-     *
      * @param length
      * @return new Point3D
      */
