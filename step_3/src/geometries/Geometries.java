@@ -16,21 +16,21 @@ public class Geometries implements Intersectable {
 	/**
 	 * List of geometries
 	 */
-	private List<Intersectable> geometriesList;
+	private List<Intersectable> _geometries;
 	
 	
 	/**
 	 * default constructor
 	 */
 	public Geometries() {
-		geometriesList = new ArrayList<Intersectable>();
+		_geometries = new ArrayList<Intersectable>();
 	}
 	/**
-	 * Constructor
+	 * Geometries constructor
 	 * @param geometries
 	 */
 	public Geometries(Intersectable... geometries) {
-		geometriesList = new ArrayList<Intersectable>();
+		_geometries = new ArrayList<Intersectable>();
 		add(geometries);
 	}
 
@@ -40,7 +40,7 @@ public class Geometries implements Intersectable {
 	 */
 	public void add(Intersectable... geometries) {
 		for (Intersectable g : geometries) {
-			geometriesList.add(g);
+			_geometries.add(g);
 		}
 	}
 	
@@ -49,7 +49,7 @@ public class Geometries implements Intersectable {
 	public List<Point3D> findIntersections(Ray r) {
 		List<Point3D> intersections = null;
 
-		for (Intersectable g : geometriesList) {
+		for (Intersectable g : _geometries) {
             List<Point3D> tempIntersections = g.findIntersections(r);
             if (tempIntersections != null) {
                 if (intersections == null)
