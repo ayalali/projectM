@@ -30,6 +30,14 @@ public class Triangle extends Polygon {
 		return super.getNormal(p).normalized();
 	}
 	
+	/**
+	*@param ray send toward geometry
+	*return list of points intersections
+	*
+	* check if there is intersection at the triangle's plane,
+	* and then check if the intersection is on  the triangle.
+	*
+	*/
 	@Override
     public List<Point3D> findIntersections(Ray ray) {
         List<Point3D> intersections = _plane.findIntersections(ray);

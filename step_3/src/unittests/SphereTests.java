@@ -18,7 +18,7 @@ import org.junit.Test;
  * Unit tests for geometries.Sphere class
  * 
  * 
- * @author ayala
+ * @author ayala and naama
  *
  */
 public class SphereTests {
