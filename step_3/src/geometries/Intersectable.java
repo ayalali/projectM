@@ -11,7 +11,7 @@ import primitives.Ray;
 /**
  * 
  * 
- * @author ayala
+ * @author ayala and naama
  *
  */
 public interface Intersectable 

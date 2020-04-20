@@ -91,10 +91,12 @@ public class Ray
 	
 	 /**
      * @param length
-     * @return new Point3D
+     * @return new Point3D P = P0 + t*V
      */
-    public Point3D getTargetPoint(double length) {
-           return isZero(length ) ? _point : _point.add(_direction.scale(length));
+    public Point3D getPoint(double t) {
+    	if(isZero(t))
+    		return _point;
+    	return _point.add(_direction.scale(t));
     }
 	
 }
