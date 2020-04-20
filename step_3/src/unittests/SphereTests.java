@@ -18,7 +18,7 @@ import org.junit.Test;
  * Unit tests for geometries.Sphere class
  * 
  * 
- * @author ayala ana naama
+ * @author ayala
  *
  */
 public class SphereTests {
@@ -43,7 +43,7 @@ public class SphereTests {
      */
 	@Test
     public void findIntersectionsTest() {
-        Sphere sphere = new Sphere(1d, new Point3D(1, 0, 0));
+        Sphere sphere = new Sphere(1, new Point3D(1, 0, 0));
 
         // ============ Equivalence Partitions Tests ==============
         Point3D p1 = new Point3D(0.0651530771650466, 0.355051025721682, 0);
@@ -88,7 +88,7 @@ public class SphereTests {
         if (result.get(0).get_y().get() > result.get(1).get_y().get()) {
             result = List.of(result.get(1), result.get(0));
         }
-        assertEquals(List.of("Line through O, ray crosses sphere", new Point3D(1, -1, 0), new Point3D(1, 1, 0)), result);
+        assertEquals("Line through O, ray crosses sphere",List.of(new Point3D(1, -1, 0), new Point3D(1, 1, 0)), result);
 
         // TC14: Ray starts at sphere and goes inside (1 points)
         assertEquals("Line through O, ray from and crosses sphere",
@@ -122,7 +122,7 @@ public class SphereTests {
         assertNull("Tangent line, ray after sphere", sphere.findIntersections(new Ray(new Point3D(2, 1, 0), new Vector(1, 0, 0))));
 
         // **** Group: Special cases
-        // TC19: Ray's line is outside, ray is orthogonal to ray start to sphere's
+        // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's
         // center line
         assertNull("Ray orthogonal to ray head -> O line", sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(0, 0, 1))));
 
