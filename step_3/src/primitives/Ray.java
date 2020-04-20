@@ -1,5 +1,6 @@
 package primitives;
 
+import static primitives.Util.*;
 
 /**
  * Ray class represent ray which is a point and direction vector.
@@ -88,5 +89,13 @@ public class Ray
 		return "Ray [_point=" + _point + ", _direction=" + _direction + "]";
 	}
 	
+	 /**
+     *
+     * @param length
+     * @return new Point3D
+     */
+    public Point3D getTargetPoint(double length) {
+           return isZero(length ) ? _point : _point.add(_direction.scale(length));
+    }
 	
 }
