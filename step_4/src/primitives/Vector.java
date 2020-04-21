@@ -211,7 +211,7 @@ public class Vector
 	/**
 	 * @return this vector(a,b,c) nomalize, length = 1
 	 *
-	 *normalize = 1/length(a,b,c)
+	 * normalize = 1/length(a,b,c)
 	 *
 	 */
 	public Vector normalize()
@@ -222,8 +222,8 @@ public class Vector
 	}
 	
 	/**
-	 * @return other vector(a,b,c) normalized, length = 1
-	 *using normalize
+	 * @return new vector(a,b,c) normalized, length = 1
+	 * using normalize.
 	 */
 	public Vector normalized()
 	{
