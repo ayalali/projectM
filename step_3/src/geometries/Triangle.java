@@ -26,7 +26,8 @@ public class Triangle extends Polygon {
 	}
 	
 	/**
-	 *
+	 *@param p point on the geometry
+	 *@return vector normal on that point
 	 */
 	@Override
 	public Vector getNormal(Point3D p) {
