@@ -25,6 +25,9 @@ public class Triangle extends Polygon {
 		super(vertices);
 	}
 	
+	/**
+	 *
+	 */
 	@Override
 	public Vector getNormal(Point3D p) {
 		return super.getNormal(p).normalized();
