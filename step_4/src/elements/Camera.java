@@ -3,6 +3,7 @@ package elements;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
+import primitives.Util;
 
 /**
  * represents the camera, point of view on the geometries
@@ -69,19 +70,61 @@ public class Camera
 
 	
 	/**
-	 * @param nX
-	 * @param nY
-	 * @param j
-	 * @param i
-	 * @param screenDistance
-	 * @param screenWidth
-	 * @param screenHeight
-	 * @return
+	 * @param nX num of pixels of X line
+	 * @param nY num of pixels of Y line
+	 * @param j last coordinate of target pixel
+	 * @param i first coordinate of target pixel
+	 * @param screenDistance distance between screen and camera
+	 * @param screenWidth width of screen - length
+	 * @param screenHeight height of screen - length
+	 * 
+	 * Pc = middle point on the screen = P0 + screenDistance * Vto
+	 * Pij = target point on screen (middle of (i,j) pixel)
+	 * Rx = screenWidth/Nx = width of one pixel
+	 * Ry =  screenHeight/Ny = heigth of one pixel
+	 * yi = (i - Ny/2)*Ry + Ry/2
+	 * Xj = (j – Nx/2)*Rx + Rx/2
+	 * if yi = 0 and xj = 0 then Pij = Pc.
+	 * Pij = Pc + xj * vright - yi * vup.
+	 * our ray = ray from P0 to Pij:
+	 * Vij = vector toward (i,j) = Pij - P0
+	 * ray = (P0, Vij)
+	 * 
+	 * @return ray from P0 to point(i,j) on the screen 
+	 *
 	 */
-	public Ray constructRayThroughPixel (int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight)
+	public Ray constructRayThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight)
 	{
-		return null;
+		if (Util.isZero(screenDistance))
+		{
+			throw new IllegalArgumentException("distance cannot be 0");
+		}
+		
+		Point3D Pc = _p0.add(_vTo.scale(screenDistance));
+		
+		double Ry = screenHeight/nY;
+		double Rx = screenWidth/nX;
+		
+		double yi =  ((i - nY/2d)*Ry + Ry/2d);
+		double xj=   ((j - nX/2d)*Rx + Rx/2d);
+		
+		Point3D Pij = Pc;
+		
+		if (! Util.isZero(xj))
+		{
+			Pij = Pij.add(_vRight.scale(xj));
+		}
+		if (! Util.isZero(yi))
+		{
+			Pij = Pij.add(_vUp.scale(-yi));
+		}
+		
+		Vector Vij = Pij.subtract(_p0);
+		
+		return new Ray(_p0,Vij);
+		
 	}
+
 
 	
 }
