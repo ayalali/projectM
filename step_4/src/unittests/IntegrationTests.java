@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import primitives.*;
 import geometries.*;
 import elements.Camera;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,8 +80,8 @@ public class IntegrationTests
 	@Test
 	public void withTriangleTest() 
 	{
-		double count = 0;
-		List<Point3D> points;
+		int count = 0;
+		List<Point3D> points = new ArrayList<Point3D>();
 		Camera camera = new Camera(new Point3D(0,0,-1), new Vector(1,0,0), new Vector(0,-1,0));
 	
 		Triangle triangle1 = new  Triangle(new Point3D(0,-1,2),
@@ -88,10 +90,13 @@ public class IntegrationTests
 		{
 			for (int j = 0; j < 3; j++) 
 			{
-				points = triangle1.findIntersections
+				points = (triangle1.findIntersections
 						(camera.constructRayThroughPixel
-								(3, 3, j, i, 1, 3, 3));
-				count += points.size();
+								(3, 3, j, i, 1, 3, 3))); 
+				if (points != null)
+				{
+					count += points.size();
+				}
 			}
 		}
 		assertEquals(1, count, "amount of intersections is wrong");
@@ -107,7 +112,10 @@ public class IntegrationTests
 				points = triangle2.findIntersections
 						(camera.constructRayThroughPixel
 								(3, 3, j, i, 1, 3, 3));
-				count += points.size();
+				if (points != null)
+				{
+					count += points.size();
+				}
 			}
 		}
 		assertEquals(2, count, "amount of intersections is wrong");
