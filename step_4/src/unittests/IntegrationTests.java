@@ -5,11 +5,9 @@ import primitives.*;
 import geometries.*;
 import elements.Camera;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static primitives.Util.*;
 
 import org.junit.Test;
 
@@ -21,14 +19,19 @@ import org.junit.Test;
 public class IntegrationTests 
 {
 	
+	/**
+	 * Test the function Ray constructRayThroughPixel in camera class.
+	 * With sphere.
+	 */
 	@Test
 	public void WithSphereTest() 
 	{
+		// ****** Test #1 *********//
+		
 		Camera cam1 = new Camera(Point3D.ZERO, new Vector(1, 0, 0), new Vector(0, -1, 0));
-	    //TO DO
+
 	    Sphere sph =  new Sphere(1, new Point3D(0, 0, 3));
-	    //Ray ray = cam1.constructRayThroughPixel(3,3,0,0,1,3,3);
-	    //List<Point3D> results =  sph.findIntersections(ray);
+
 	    List<Point3D> results;
 	    int count = 0;
 	    int Nx = 3;
@@ -43,7 +46,8 @@ public class IntegrationTests
 	        }
 	    }
 	    assertEquals("amount of intersections is wrong",2,count);
-	    System.out.println("count: " + count);
+	    
+	 // ****** Test #2 *********//
 	    
 	    Camera cam2 = new Camera(new Point3D(0, 0, -0.5), new Vector(1, 0, 0), new Vector(0, -1, 0));
         sph =  new Sphere(2.5, new Point3D(0, 0, 2.5));
@@ -51,7 +55,6 @@ public class IntegrationTests
         results = null;
         count = 0;
         
-        // TODO explanations
         for (int i = 0; i < 3; ++i) 
         {
             for (int j = 0; j < 3; ++j) 
@@ -63,7 +66,8 @@ public class IntegrationTests
         }
 
         assertEquals("amount of intersections is wrong",18,count);
-        System.out.println("count: "+count);
+        
+     // ****** Test #3 *********//
         
         Camera cam = new Camera(new Point3D(0, 0, -0.5), new Vector(1, 0, 0), new Vector(0, -1, 0));
         sph =  new Sphere(2, new Point3D(0, 0, 2));
@@ -71,7 +75,7 @@ public class IntegrationTests
         results = null;
         count = 0;
         
-        // TODO explanations
+        // for any pixel in the view plane we send ray to find the intersection points.
         for (int i = 0; i < 3; ++i) 
         {
             for (int j = 0; j < 3; ++j) 
@@ -83,7 +87,8 @@ public class IntegrationTests
         }
 
         assertEquals("amount of intersections is wrong",10,count);
-        System.out.println("count: "+count);
+        
+     // ****** Test #4 *********//
         
         cam = new Camera(new Point3D(0, 0, -0.5), new Vector(1, 0, 0), new Vector(0, -1, 0));
         sph =  new Sphere(4, new Point3D(0, 0, 1));
@@ -91,7 +96,7 @@ public class IntegrationTests
         results = null;
         count = 0;
         
-        // TODO explanations
+     // for any pixel in the view plane we send ray to find the intersection points.
         for (int i = 0; i < 3; ++i) 
         {
             for (int j = 0; j < 3; ++j) 
@@ -103,7 +108,8 @@ public class IntegrationTests
         }
 
         assertEquals("amount of intersections is wrong",9,count);
-        System.out.println("count: "+count);
+        
+     // ****** Test #5 *********//
         
         cam = new Camera(new Point3D(0, 0, -0.25), new Vector(1, 0, 0), new Vector(0, -1, 0));
         sph =  new Sphere(0.5, new Point3D(0, 0, -1));
@@ -111,7 +117,7 @@ public class IntegrationTests
         results = null;
         count = 0;
         
-        // TODO explanations
+     // for any pixel in the view plane we send ray to find the intersection points.
         for (int i = 0; i < 3; ++i) 
         {
             for (int j = 0; j < 3; ++j) 
@@ -123,14 +129,19 @@ public class IntegrationTests
         }
 
         assertEquals("amount of intersections is wrong",0,count);
-        System.out.println("count: "+count);
 	}
 	 
 
+	/**
+	 * Test the function Ray constructRayThroughPixel in camera class.
+	 * With plane.
+	 */
 	@Test
 	public void withPlaneTest() {
 		List<Point3D> points;
 		int count = 0;
+		
+		// ****** Test #1 *********//
 		
 		Camera camera = new Camera(new Point3D(0,0,-1), new Vector(1,0,0), new Vector(0,-1,0));
 		
@@ -139,7 +150,7 @@ public class IntegrationTests
 		int Nx =3;
         int Ny =3;
 
-        // TODO explanations
+     // for any pixel in the view plane we send ray to find the intersection points.
         for (int i = 0; i < 3; ++i) 
         {
             for (int j = 0; j < 3; ++j) 
@@ -151,12 +162,14 @@ public class IntegrationTests
         }
         assertEquals("amount of intersections is wrong",9, count);
         
+     // ****** Test #2 *********//
+        
         points = null;
 		count = 0;
 		
 		plane = new Plane(new Point3D(0,0,2), camera.getVright().crossProduct(new Vector(0,-2,-1)));
 		
-		// TODO explanations
+		// for any pixel in the view plane we send ray to find the intersection points.
         for (int i = 0; i < 3; ++i) 
         {
             for (int j = 0; j < 3; ++j) 
@@ -168,12 +181,14 @@ public class IntegrationTests
         }
         assertEquals("amount of intersections is wrong", 9, count);
         
+     // ****** Test #3 *********//
+        
         points = null;
 		count = 0;
 		
 		plane = new Plane(new Point3D(0,0,2), camera.getVright().crossProduct(new Vector(0,-0.5,-1)));
 		
-		// TODO explanations
+		// for any pixel in the view plane we send ray to find the intersection points.
         for (int i = 0; i < 3; ++i) 
         {
             for (int j = 0; j < 3; ++j) 
@@ -186,15 +201,24 @@ public class IntegrationTests
         assertEquals("amount of intersections is wrong",6, count);
 	}
 	
+	/**
+	 * Test the function Ray constructRayThroughPixel in camera class.
+	 * With triangle.
+	 */
 	@Test
 	public void withTriangleTest() 
 	{
 		int count = 0;
-		List<Point3D> points = new ArrayList<Point3D>();
+		List<Point3D> points;
+		
+		// ****** Test #1 *********//
+		
 		Camera camera = new Camera(new Point3D(0,0,-1), new Vector(1,0,0), new Vector(0,-1,0));
 	
 		Triangle triangle1 = new  Triangle(new Point3D(0,-1,2),
 				new Point3D(1,1,2), new Point3D(-1,1,2));
+		
+		// for any pixel in the view plane we send ray to find the intersection points.
 		for (int i = 0; i < 3; i++) 
 		{
 			for (int j = 0; j < 3; j++) 
@@ -210,10 +234,13 @@ public class IntegrationTests
 		}
 		assertEquals("amount of intersections is wrong",1, count);
 		
+		// ****** Test #2 *********//
+		
 		count = 0;
 		Triangle triangle2 = new  Triangle(new Point3D(0,-20, 2),
 				new Point3D(1,1,2), new Point3D(-1,1,2));
 		
+		// for any pixel in the view plane we send ray to find the intersection points.
 		for (int i = 0; i < 3; i++) 
 		{
 			for (int j = 0; j < 3; j++) 
