@@ -8,6 +8,12 @@ import org.junit.Test;
 
 import renderer.ImageWriter;
 
+/**
+ * Test the ImageWriter class in renderer package 
+ * 
+ * @author ayala and naama
+ *
+ */
 public class ImageWriterTest {
 
 	/**
