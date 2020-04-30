@@ -91,7 +91,6 @@ public class Camera
 	 * ray = (P0, Vij)
 	 * 
 	 * @return ray from P0 to point(i,j) on the screen 
-	 *
 	 */
 	public Ray constructRayThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight)
 	{

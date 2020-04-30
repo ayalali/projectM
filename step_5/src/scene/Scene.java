@@ -9,9 +9,9 @@ import geometries.Intersectable;
 import primitives.Color;
 
 /**
- * @author ayala and naama
- * 
  * This class represents scene with geometries, light and more components.
+ * 
+ * @author ayala and naama
  *
  */
 public class Scene 
