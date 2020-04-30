@@ -52,8 +52,8 @@ public class Scene
 	 * creates new geometries collection.
 	 */
 	public Scene(String name) {
-		super();
 		this._name = name;
+		//_geometries = new Geometries();
 	}
 	
 	

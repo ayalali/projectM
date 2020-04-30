@@ -23,10 +23,10 @@ public class RenderTests {
     @Test
     public void basicRenderTwoColorTest() {
         Scene scene = new Scene("Test scene");
-        scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
-        scene.setDistance(100);
-        scene.setBackground(new Color(75, 127, 90));
-        scene.setAmbientLight(new AmbientLight(new Color(255, 191, 191), 1));
+        scene.set_camera(new Camera(Point3D.ZERO,new Vector(0, 0, 1), new Vector(0, -1, 0)));
+        scene.set_distance(100);
+        scene.set_background(new Color(75,127,90));
+        scene.set_ambientLight(new AmbientLight(new Color(255, 191, 191), 1));
 
         scene.addGeometries(new Sphere(50, new Point3D(0, 0, 100)));
 
