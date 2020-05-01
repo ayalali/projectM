@@ -52,7 +52,7 @@ public class Scene
 	 */
 	public Scene(String name) {
 		this._name = name;
-		//_geometries = new Geometries();
+		_geometries = new Geometries();
 	}
 	
 	
@@ -130,7 +130,7 @@ public class Scene
 	/**
 	 * @param geometries collection of geometries
 	 * 
-	 * add geometries to scene's geometries
+	 * add geometries to scene's geometries list
 	 */
 	public void addGeometries(Intersectable... geometries)
 	{

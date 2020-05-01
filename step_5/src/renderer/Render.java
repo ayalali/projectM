@@ -11,11 +11,11 @@ import geometries.Intersectable;
 public class Render {
 	
 	/**
-	 * 
+	 * write the pixels into a file
 	 */
 	ImageWriter _imageWriter;
 	/**
-	 * 
+	 * contains all the elements in the image
 	 */
 	Scene _scene;
 	
@@ -35,30 +35,36 @@ public class Render {
      * This function does not creating the picture file, but create the buffer of pixels
 	 */
 	public void renderImage() {
+		
 		Point3D closestPoint = null;
 		
 		Camera camera = _scene.get_camera();
 		Intersectable geometries = _scene.get_geometries();
 		java.awt.Color background = _scene.get_background().getColor();
-		 double  distance = _scene.get_distance();
 		
+		double  distance = _scene.get_distance();
 		int nX = _imageWriter.getNx();
 		int nY = _imageWriter.getNy();
 		double width = _imageWriter.getWidth();
 		double height = _imageWriter.getHeight();
 		
-		for(int i = 0; i < _imageWriter.getNx(); i++) {
-			for(int j = 0; j < _imageWriter.getNy(); j++) {
+		for(int i = 0; i < _imageWriter.getNx(); i++) 
+		{
+			for(int j = 0; j < _imageWriter.getNy(); j++) 
+			{
 				Ray ray = camera.constructRayThroughPixel(nX, nY, j, i, distance, width, height);
 				
 				List<Point3D> intersectionPoints = geometries.findIntersections(ray);
 
 				if (intersectionPoints == null)
-				_imageWriter.writePixel(j, i, background);
+				{	_imageWriter.writePixel(j, i, background);}
 				else
-				closestPoint = getClosestPoint(intersectionPoints);
-				_imageWriter.writePixel(j, i, calcColor(closestPoint).getColor());
-			}
+				{
+					closestPoint = getClosestPoint(intersectionPoints);
+					_imageWriter.writePixel(j, i, calcColor(closestPoint).getColor());
+				}
+			} //_imageWriter.writePixel(j-1, i-1, calcColor(closestPoint).getColor());
+
 		}
 
 	}
@@ -90,7 +96,7 @@ public class Render {
             double distance = p0.distance(pt);
             if (distance < minDst){
             	minDst = distance;
-                clstPoint =pt;
+                clstPoint = new Point3D(pt);
             }
         }
         return  clstPoint;

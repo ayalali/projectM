@@ -13,7 +13,7 @@ import javax.imageio.stream.*;
  * finally producing a non-optimized jpeg image from this matrix.
  * The class although is responsible of holding image related parameters
  * of View Plane - pixel matrix size and resolution 
- * @author Dan
+ * @author ayala and naama
  */
 public class ImageWriter {
 	private double _imageWidth, _imageHeight;

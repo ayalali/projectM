@@ -12,7 +12,7 @@ import scene.Scene;
 /**
  * Test rendering a basic image
  * 
- * @author Dan
+ * @author ayala and naama
  */
 public class RenderTests {
 
@@ -39,9 +39,9 @@ public class RenderTests {
         ImageWriter imageWriter = new ImageWriter("base render test", 500, 500, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
-        render.printGrid(50, java.awt.Color.YELLOW);
-        render.writeToImage();
+        //render.printGrid(50, java.awt.Color.YELLOW);//grid
+        render.renderImage();//our image
+        render.writeToImage();//into files
     }
     
 }
