@@ -39,8 +39,11 @@ public class Geometries implements Intersectable {
 	 * @param geometries
 	 */
 	public void add(Intersectable... geometries) {
-		for (Intersectable g : geometries) {
-			_geometries.add(g);
+		if (geometries != null) 
+		{
+			for (Intersectable g : geometries) {
+				_geometries.add(g);
+			}
 		}
 	}
 	

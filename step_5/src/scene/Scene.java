@@ -134,7 +134,9 @@ public class Scene
 	 */
 	public void addGeometries(Intersectable... geometries)
 	{
-		_geometries.add(geometries);
+		if (geometries != null) {
+			_geometries.add(geometries);
+		}
 	}
 	
 }

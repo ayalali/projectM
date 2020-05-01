@@ -10,7 +10,7 @@ import renderer.Render;
 import scene.Scene;
 
 /**
- * Test rendering abasic image
+ * Test rendering a basic image
  * 
  * @author Dan
  */
@@ -28,14 +28,14 @@ public class RenderTests {
         scene.set_background(new Color(75,127,90));
         scene.set_ambientLight(new AmbientLight(new Color(255, 191, 191), 1));
 
-        scene.addGeometries(new Sphere(50, new Point3D(0, 0, 100)));
-
         scene.addGeometries(
                 new Triangle(new Point3D(100, 0, 100), new Point3D(0, 100, 100), new Point3D(100, 100, 100)),
                 new Triangle(new Point3D(100, 0, 100), new Point3D(0, -100, 100), new Point3D(100, -100, 100)),
                 new Triangle(new Point3D(-100, 0, 100), new Point3D(0, 100, 100), new Point3D(-100, 100, 100)),
                 new Triangle(new Point3D(-100, 0, 100), new Point3D(0, -100, 100), new Point3D(-100, -100, 100)));
 
+        scene.addGeometries(new Sphere(50, new Point3D(0, 0, 100)));
+        
         ImageWriter imageWriter = new ImageWriter("base render test", 500, 500, 500, 500);
         Render render = new Render(imageWriter, scene);
 

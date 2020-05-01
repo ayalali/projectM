@@ -12,7 +12,7 @@ import primitives.*;
 public abstract class RadialGeometry implements Geometry {
 
 	/**
-	 * the radius of the geometry
+	 * radius of the radial geometry
 	 */
 	private double _radius;
 	
@@ -20,7 +20,6 @@ public abstract class RadialGeometry implements Geometry {
 	 * @param _radius - radius of the geometry
 	 */
 	public RadialGeometry(double _radius) {
-		super();
 		this._radius = _radius;
 	}
 
