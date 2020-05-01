@@ -1,6 +1,5 @@
 package scene;
 
-import java.util.List;
 
 import elements.AmbientLight;
 import elements.Camera;

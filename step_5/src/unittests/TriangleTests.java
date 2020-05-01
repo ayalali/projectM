@@ -5,17 +5,13 @@ package unittests;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import geometries.Triangle;
 import primitives.Point3D;
 import primitives.Ray;
-import primitives.Util;
 import primitives.Vector;
-
 import org.junit.Test;
-import static java.lang.System.out;
 
 /**
  * Unit tests for geometries.Triangle class

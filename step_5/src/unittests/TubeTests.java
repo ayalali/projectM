@@ -4,11 +4,7 @@
 package unittests;
 
 import static org.junit.Assert.*;
-import static java.lang.System.out;
-import static primitives.Util.isZero;
-
 import org.junit.Test;
-
 import geometries.Tube;
 import primitives.Point3D;
 import primitives.Ray;

@@ -8,9 +8,7 @@ import geometries.Cylinder;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
 import org.junit.Test;
-import static primitives.Util.*;
 
 /**
  * 
