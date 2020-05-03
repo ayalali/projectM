@@ -85,11 +85,12 @@ public class Plane implements Geometry {
 	* else P = ray's point + t * ray's direction
 	*
 	*/
+	@Override
 	public List<Point3D> findIntersections(Ray r) {
 		Vector V;
         try
         {
-            V = _p.subtract(r.get_point());
+            V = new Vector(_p.subtract(r.get_point()));
         }
         catch (IllegalArgumentException e)
         {

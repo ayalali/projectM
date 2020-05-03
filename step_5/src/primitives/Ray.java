@@ -96,7 +96,7 @@ public class Ray
     public Point3D getPoint(double t) {
     	if(isZero(t))
     		return _point;
-    	return _point.add(_direction.scale(t));
+    	return new Point3D(_point.add(_direction.scale(t)));
     }
 	
 }

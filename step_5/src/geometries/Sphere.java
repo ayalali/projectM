@@ -91,14 +91,13 @@ public class Sphere extends RadialGeometry{
 	public ArrayList<Point3D> findIntersections(Ray r) {
 		ArrayList<Point3D> lst = new ArrayList<Point3D>();
 		Point3D P0 = r.get_point();
-		Vector V = new Vector(r.get_direction());			
-		V.normalize();
+		Vector V = new Vector(r.get_direction()).normalize();
 		Vector L;
 		try 
 		{
-			L = new Vector(_center.subtract(P0));
-		} 
-		catch (Exception e) 
+			L = new Vector(_center.subtract(P0));//.normalize();
+		}
+		catch (Exception e)
 		{
 			lst.add(P0.add(V.scale(get_radius())));
 			return lst;
@@ -118,19 +117,18 @@ public class Sphere extends RadialGeometry{
 		double t2 = tm + th;
 		if (t1 > 0)
 		{
-			Point3D P1 = new Point3D(r.get_point().add(V.scale(t1)));
+			Point3D P1 = new Point3D(r.getPoint(t1));
 			lst.add(P1);
 		}
 		if(D == get_radius())
 			return lst;
 		if (t2 > 0)
 		{
-			Point3D P2 = new Point3D(r.get_point().add(V.scale(t2)));
+			Point3D P2 = new Point3D(r.getPoint(t2));
 			lst.add(P2);
 		}
 		if (lst.isEmpty())
-			return null;
-		
+			return null;		
 		return lst;
 	}
 

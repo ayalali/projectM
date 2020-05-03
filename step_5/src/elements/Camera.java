@@ -14,14 +14,21 @@ import primitives.Util;
 public class Camera 
 {
 	/**
-	 *  location is center of camera location
-	 *  Vtoward points to view's center.
-	 *  Vright
-	 *  Vup
+	 *  p0 is center of camera location
 	 */
 	private Point3D _p0;
+	/**
+	 *  Vup pointed up
+	 */
 	private Vector _vUp;
+	/**
+	 * Vtoward points to view's plane center.
+	 * 
+	 */
 	private Vector _vTo;
+	/**
+	 * _vRight pointed to the right side of camera
+	 */
 	private Vector _vRight;
 	
 	
@@ -34,9 +41,9 @@ public class Camera
 	public Camera(Point3D _location, Vector _Vright, Vector _Vup) 
 	{
 		if (_Vright.length() != 1)
-			_Vright = _Vright.normalized();
+			_Vright = _Vright.normalize();
 		if (_Vup.length() != 1)
-			_Vup = _Vup.normalized();
+			_Vup = _Vup.normalize();
 		this._p0 = new Point3D(_location);
 		this._vRight = new Vector(_Vright);
 		this._vUp = new Vector(_Vup);
@@ -99,26 +106,26 @@ public class Camera
 			throw new IllegalArgumentException("distance cannot be 0");
 		}
 		
-		Point3D Pc = _p0.add(_vTo.scale(screenDistance));
+		Point3D Pc = new Point3D(_p0.add(_vTo.scale(screenDistance)));
 		
 		double Ry = screenHeight/nY;
 		double Rx = screenWidth/nX;
 		
-		double yi =  ((i - nY/2d)*Ry + Ry/2d);
-		double xj=   ((j - nX/2d)*Rx + Rx/2d);
+		double yi =  ((i - nY/2d)*Ry + Ry/2);
+		double xj=   ((j - nX/2d)*Rx + Rx/2);
 		
-		Point3D Pij = Pc;
+		Point3D Pij = new Point3D(Pc);
 		
 		if (! Util.isZero(xj))
 		{
-			Pij = Pij.add(_vRight.scale(xj));
+			Pij = new Point3D(Pij.add(_vRight.scale(xj)));
 		}
 		if (! Util.isZero(yi))
 		{
-			Pij = Pij.add(_vUp.scale(-yi));
+			Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
 		}
 		
-		Vector Vij = Pij.subtract(_p0);
+		Vector Vij = new Vector(Pij.subtract(_p0));
 		
 		return new Ray(_p0,Vij);
 		
