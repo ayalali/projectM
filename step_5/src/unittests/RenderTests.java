@@ -43,5 +43,5 @@ public class RenderTests {
         render.printGrid(50, java.awt.Color.YELLOW);//grid
         render.writeToImage();//into files
     }
-    
+
 }

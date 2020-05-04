@@ -38,16 +38,16 @@ public class Camera
 	 * @param _Vup
 	 * creates vector Vtoward, orthogonal to Vright and Vup
 	 */
-	public Camera(Point3D _location, Vector _Vright, Vector _Vup) 
+	public Camera(Point3D p0, Vector vTo, Vector vUp) 
 	{
-		if (_Vright.length() != 1)
-			_Vright = _Vright.normalize();
-		if (_Vup.length() != 1)
-			_Vup = _Vup.normalize();
-		this._p0 = new Point3D(_location);
-		this._vRight = new Vector(_Vright);
-		this._vUp = new Vector(_Vup);
-		this._vTo = new Vector(_vUp.crossProduct(_vRight).normalize());
+		 if (vUp.dotProduct(vTo) != 0)
+	            throw new IllegalArgumentException("the vectors must be orthogonal");
+
+	        this._p0 = new Point3D(p0);
+	        this._vTo = vTo.normalized();
+	        this._vUp = vUp.normalized();
+
+	        _vRight = this._vTo.crossProduct(this._vUp).normalize();
 	}
 	
 	/**

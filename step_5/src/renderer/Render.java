@@ -66,7 +66,6 @@ public class Render {
 			} //_imageWriter.writePixel(j-1, i-1, calcColor(closestPoint).getColor());
 
 		}
-
 	}
 	
 	/**

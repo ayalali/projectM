@@ -28,7 +28,7 @@ public class IntegrationTests
 	{
 		// ****** Test #1 *********//
 		
-		Camera cam1 = new Camera(Point3D.ZERO, new Vector(1, 0, 0), new Vector(0, -1, 0));
+		Camera cam1 = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
 
 	    Sphere sph =  new Sphere(1, new Point3D(0, 0, 3));
 
@@ -49,8 +49,7 @@ public class IntegrationTests
 	    
 	 // ****** Test #2 *********//
 	    
-	    Camera cam2 = new Camera(new Point3D(0, 0, -0.5), new Vector(1, 0, 0), new Vector(0, -1, 0));
-        sph =  new Sphere(2.5, new Point3D(0, 0, 2.5));
+	    Camera cam2 = new Camera(new Point3D(0, 0, -0.5), new Vector(0, 0, 1), new Vector(0, -1, 0));        sph =  new Sphere(2.5, new Point3D(0, 0, 2.5));
 
         results = null;
         count = 0;
@@ -143,7 +142,7 @@ public class IntegrationTests
 		
 		// ****** Test #1 *********//
 		
-		Camera camera = new Camera(new Point3D(0,0,-1), new Vector(1,0,0), new Vector(0,-1,0));
+		Camera camera = new Camera(new Point3D(0,0,-1), new Vector(0,0,1), new Vector(0,-1,0));
 		
 		Plane plane = new Plane(new Point3D(0,0,2), new Vector(camera.getVtoward()));
 		
@@ -213,7 +212,7 @@ public class IntegrationTests
 		
 		// ****** Test #1 *********//
 		
-		Camera camera = new Camera(new Point3D(0,0,-1), new Vector(1,0,0), new Vector(0,-1,0));
+		Camera camera = new Camera(new Point3D(0,0,-1), new Vector(0,0,1), new Vector(0,-1,0));
 	
 		Triangle triangle1 = new  Triangle(new Point3D(0,-1,2),
 				new Point3D(1,1,2), new Point3D(-1,1,2));

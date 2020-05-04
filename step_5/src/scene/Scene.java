@@ -102,14 +102,14 @@ public class Scene
 	 * @return camera details
 	 */
 	public Camera get_camera() {
-		return new Camera(_camera.getLocation(), _camera.getVright(), _camera.getVup());
+		return new Camera(_camera.getLocation(), _camera.getVtoward(), _camera.getVup());
 	}
 	/**
 	 * @param _camera scene's camera
 	 * update camera details
 	 */
 	public void set_camera(Camera camera) {
-		this._camera = new Camera(camera.getLocation(), camera.getVright(), camera.getVup());
+		this._camera = new Camera(camera.getLocation(), camera.getVtoward(), camera.getVup());
 	}
 	/**
 	 * @return distance between camera and scene's screen
