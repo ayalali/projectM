@@ -11,7 +11,7 @@ import primitives.*;
  * @author ayala and naama
  *
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 
 	/**
 	* _p is 3D cartesian coordinate on the plane
@@ -39,13 +39,24 @@ public class Plane implements Geometry {
 	}
 	
 	/**
-	* @param p - 3D cartesian coordinate on the plane
+	* @param p - 3D Cartesian coordinate on the plane
 	* @param v - vertical vector to the plane
 	*/
 	public Plane(Point3D p, Vector v)
 	{
 		_p = new Point3D(p);
 		_normal = new Vector(v);
+	}
+	
+	/**
+	 * @param c - The color of the plane
+	 * @param p - 3D Cartesian coordinate on the plane
+	 * @param v - vertical vector to the plane
+	 */
+	public Plane(Color c, Point3D p, Vector v)
+	{
+		this(p,v);
+		this._emmission = new Color(c);
 	}
 	
 	/**
@@ -86,7 +97,7 @@ public class Plane implements Geometry {
 	*
 	*/
 	@Override
-	public List<Point3D> findIntersections(Ray r) {
+	public List<GeoPoint> findIntersections(Ray r) {
 		Vector V;
         try
         {
@@ -103,6 +114,6 @@ public class Plane implements Geometry {
 	
 	    double t = alignZero(_normal.dotProduct(V) / nv);
 	
-	    return t <= 0 ? null : List.of(r.getPoint(t));
+	    return t <= 0 ? null : List.of(new GeoPoint(this, r.getPoint(t)));
 	}
 }

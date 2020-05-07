@@ -5,8 +5,10 @@ package unittests;
 
 import static org.junit.Assert.*;
 
+
 import java.util.List;
 
+import geometries.Intersectable.GeoPoint;
 import geometries.Triangle;
 import primitives.Point3D;
 import primitives.Ray;
@@ -47,8 +49,9 @@ public class TriangleTests {
 
         // TC01: Ray starts before and crosses the triangle (1 point)
 		
-		List<Point3D> result = triangle.findIntersections(new Ray(new Point3D(2, 0.5, 1),new Vector(new Point3D(0,0,-1))));
-        assertEquals("uncorrect values",List.of(new Point3D(2,0.5,0)), result);
+		List<GeoPoint> result = triangle.findIntersections(new Ray(new Point3D(2, 0.5, 1),new Vector(new Point3D(0,0,-1))));
+
+		assertEquals("uncorrect values",(new Point3D(2,0.5,0)), result.get(0)._point);
         
         // TC02: Ray does not crosses the triangle (0 points)
         

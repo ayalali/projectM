@@ -1,6 +1,9 @@
 package geometries;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -27,6 +30,16 @@ public class Sphere extends RadialGeometry{
 		this._center = new Point3D(_center);
 	}
 
+	/**
+	 * @param color the color of the sphere
+	 * @param r the radius of the sphere
+	 * @param c is the center of the sphere by 3D Cartesian coordinate
+	 */
+	public Sphere(Color color, double r, Point3D c) {
+		this(r,c);
+		this._emmission = new Color(color);
+	}
+	
 	/**
 	 * @return the center of the sphere by 3D Cartesian coordinate
 	 */
@@ -88,8 +101,9 @@ public class Sphere extends RadialGeometry{
 	 *
 	 */
 	@Override
-	public ArrayList<Point3D> findIntersections(Ray r) {
-		ArrayList<Point3D> lst = new ArrayList<Point3D>();
+	public List<GeoPoint> findIntersections(Ray r) {
+		
+		List<GeoPoint> lst = new ArrayList<GeoPoint>();
 		Point3D P0 = r.get_point();
 		Vector V = new Vector(r.get_direction()).normalize();
 		Vector L;
@@ -99,7 +113,7 @@ public class Sphere extends RadialGeometry{
 		}
 		catch (Exception e)
 		{
-			lst.add(P0.add(V.scale(get_radius())));
+			lst.add(new GeoPoint(this,(r.getPoint(get_radius()))));
 			return lst;
 		}
 		double tm = V.dotProduct(L);
@@ -117,14 +131,14 @@ public class Sphere extends RadialGeometry{
 		double t2 = tm + th;
 		if (t1 > 0)
 		{
-			Point3D P1 = new Point3D(r.getPoint(t1));
+			GeoPoint P1 = new GeoPoint(this, r.getPoint(t1));
 			lst.add(P1);
 		}
 		if(D == get_radius())
 			return lst;
 		if (t2 > 0)
 		{
-			Point3D P2 = new Point3D(r.getPoint(t2));
+			GeoPoint P2 = new GeoPoint(this, r.getPoint(t2));
 			lst.add(P2);
 		}
 		if (lst.isEmpty())

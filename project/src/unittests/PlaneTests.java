@@ -5,6 +5,7 @@ package unittests;
 
 import static org.junit.Assert.*;
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class PlaneTests {
 		 List<Point3D> lst = List.of(p);
 
         // TC01: Ray intersects the plane (1 point)
-		 List<Point3D> l = plane.findIntersections(new Ray(new Point3D(0,0,2),new Vector(0,0,-1)));
+		 List<GeoPoint> l = plane.findIntersections(new Ray(new Point3D(0,0,2),new Vector(0,0,-1)));
          assertEquals("Wrong number of points",1,l.size());
          
         // TC02: Ray does not intersect the plane (0 points)

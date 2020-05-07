@@ -2,6 +2,7 @@ package geometries;
 
 import java.util.List;
 import primitives.Util;
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -26,6 +27,15 @@ public class Triangle extends Polygon {
 	}
 	
 	/**
+	 * @param c the color of the triangle
+	 * @param vertices list of vertices according to their order by edge path
+	 */
+	public Triangle(Color c, Point3D... vertices) {
+		this(vertices);
+		this._emmission = new Color(c);
+	}
+	
+	/**
 	 *@param p point on the geometry
 	 *@return vector normal on that point
 	 */
@@ -43,9 +53,9 @@ public class Triangle extends Polygon {
 	*
 	*/
 	@Override
-    public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> intersections = _plane.findIntersections(ray);
-        System.out.println(_plane.toString());
+    public List<GeoPoint> findIntersections(Ray ray) {
+        List<GeoPoint> intersections = _plane.findIntersections(ray);
+        
         if (intersections == null) return null;
 
         Point3D p0 = new Point3D(ray.get_point());
@@ -62,6 +72,8 @@ public class Triangle extends Polygon {
         double s3 = v.dotProduct(v3.crossProduct(v1));
         if (Util.isZero(s3)) return null;
 
+        intersections.get(0)._geometry = this;
+        
         return ((s1 > 0 && s2 > 0 && s3 > 0) || (s1 < 0 && s2 < 0 && s3 < 0)) ? intersections : null;
 
     }

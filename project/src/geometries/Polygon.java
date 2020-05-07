@@ -11,7 +11,7 @@ import static primitives.Util.*;
  * 
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -81,34 +81,47 @@ public class Polygon implements Geometry {
         }
     }
 
+    /**
+     * @param c the color of the polygon
+     * @param vertices vertices list of vertices according to their order by edge path
+     */
+    public Polygon(Color c, Point3D... vertices) {
+    	this(vertices);
+    	this._emmission = new Color(c);
+    }
+    
     @Override
     public Vector getNormal(Point3D point) {
         return _plane.getNormal();
     }
 
 	@Override
-	public List<Point3D> findIntersections(Ray r) {
-		List<Point3D> intersections = _plane.findIntersections(r);
-        if (intersections == null) return null;
+	public List<GeoPoint> findIntersections(Ray r) {
+		 List<GeoPoint> intersections = _plane.findIntersections(r);
+	        if (intersections == null)
+	            return null;
 
-        Point3D p0 = r.get_point();
-        Vector v = r.get_direction();
+	        Point3D p0 = r.get_point();
+	        Vector v = r.get_direction();
 
-        Vector v1  = _vertices.get(1).subtract(p0);
-        Vector v2 = _vertices.get(0).subtract(p0);
-        double sign = v.dotProduct(v1.crossProduct(v2));
-        if (isZero(sign))
-            return null;
+	        Vector v1  = _vertices.get(1).subtract(p0);
+	        Vector v2 = _vertices.get(0).subtract(p0);
+	        double sign = v.dotProduct(v1.crossProduct(v2));
+	        if (isZero(sign))
+	            return null;
 
-        boolean positive = sign > 0;
+	        boolean positive = sign > 0;
 
-        for (int i = _vertices.size() - 1; i > 0; --i) {
-            v1 = v2;
-            v2 = _vertices.get(i).subtract(p0);
-            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-            if (isZero(sign)) return null;
-            if (positive != (sign >0)) return null;
-        }
-        return intersections;
+	        for (int i = _vertices.size() - 1; i > 0; --i) {
+	            v1 = v2;
+	            v2 = _vertices.get(i).subtract(p0);
+	            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+	            if (isZero(sign)) return null;
+	            if (positive != (sign >0)) return null;
+	        }
+
+	        intersections.get(0)._geometry = this;
+
+	        return intersections;
 	}
 }

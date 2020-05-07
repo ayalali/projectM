@@ -3,6 +3,7 @@ package unittests;
 
 import primitives.*;
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 import elements.Camera;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class IntegrationTests
 
 	    Sphere sph =  new Sphere(1, new Point3D(0, 0, 3));
 
-	    List<Point3D> results;
+	    List<GeoPoint> results;
 	    int count = 0;
 	    int Nx = 3;
 	    int Ny = 3;
@@ -137,7 +138,7 @@ public class IntegrationTests
 	 */
 	@Test
 	public void withPlaneTest() {
-		List<Point3D> points;
+		List<GeoPoint> points;
 		int count = 0;
 		
 		// ****** Test #1 *********//
@@ -208,7 +209,7 @@ public class IntegrationTests
 	public void withTriangleTest() 
 	{
 		int count = 0;
-		List<Point3D> points;
+		List<GeoPoint> points;
 		
 		// ****** Test #1 *********//
 		
