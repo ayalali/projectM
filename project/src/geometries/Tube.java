@@ -13,13 +13,19 @@ import primitives.*;
  * @author ayala and naama
  *
  */
-public class Tube extends RadialGeometry{
-
+public class Tube extends RadialGeometry
+{
+	
+	//fields
+	
 	/**
 	 * the tube direction
 	 */
 	private Ray _axisRay;
 
+	
+	//constructor
+	
 	/**
 	 * @param _radius the radius of the sphere
 	 * @param _axisRay tube direction
@@ -29,6 +35,9 @@ public class Tube extends RadialGeometry{
 		this._axisRay = new Ray(_axisRay);
 	}
 
+	
+	//getters
+	
 	/**
 	 * @return tube direction
 	 */
@@ -36,6 +45,9 @@ public class Tube extends RadialGeometry{
 		return new Ray(_axisRay);
 	}
 
+	
+	//other functions
+	
 	/**
 	 *@return the tube fields values
 	 */

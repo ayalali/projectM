@@ -9,27 +9,50 @@ import primitives.*;
  * @author ayala
  *
  */
-public abstract class RadialGeometry extends Geometry {
+public abstract class RadialGeometry extends Geometry 
+{
 
+	//fields
+	
 	/**
 	 * radius of the radial geometry
 	 */
 	private double _radius;
 	
+	
+	//constructors
+	
+	/**
+	 * @param c
+	 * @param m
+	 * @param _radius
+	 */
+	public RadialGeometry(Color c, Material m, double _radius) 
+	{
+		this(_radius);
+		this._emmission = new Color(c);
+		this._material = new Material(m);
+	}
 	/**
 	 * @param _radius - radius of the geometry
 	 */
-	public RadialGeometry(double _radius) {
+	public RadialGeometry(double _radius) 
+	{
+		super();
 		this._radius = _radius;
 	}
-
 	/**
-	 * @param r - argument of RadialGeometry
+	 * @param r - RadialGeometry entity
 	 */
 	public RadialGeometry(RadialGeometry r) 
 	{
 		this._radius = r._radius;
+		this._emmission = new Color(r._emmission);
+		this._material = new Material(r._material);
 	}
+	
+	
+	//getters
 	
 	/**
 	 * @return the radius of the geometry
@@ -38,6 +61,8 @@ public abstract class RadialGeometry extends Geometry {
 		return _radius;
 	}
 
+	
+	//other functions
 	
 	/**
 	 *@return vertical vector to the geometry on the 3D point p.

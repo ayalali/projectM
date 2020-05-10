@@ -3,6 +3,7 @@ package geometries;
 import java.util.List;
 import primitives.Util;
 import primitives.Color;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -14,8 +15,10 @@ import primitives.Vector;
  * @author ayala and naama
  *
  */
-public class Triangle extends Polygon {
+public class Triangle extends Polygon 
+{
 	
+	//constructors
 	
 	/**
 	 * @param vertices list of vertices according to their order by edge path
@@ -25,7 +28,6 @@ public class Triangle extends Polygon {
 	public Triangle(Point3D... vertices) {
 		super(vertices);
 	}
-	
 	/**
 	 * @param c the color of the triangle
 	 * @param vertices list of vertices according to their order by edge path
@@ -34,6 +36,17 @@ public class Triangle extends Polygon {
 		this(vertices);
 		this._emmission = new Color(c);
 	}
+	/**
+	 * @param m triangle's material
+	 * @param c triangle's color
+	 * @param vertices triangle's vertices
+	 */
+	public Triangle(Color c, Material m, Point3D... vertices) 
+	{
+		this(c, vertices);
+	}
+	
+	//other functions
 	
 	/**
 	 *@param p point on the geometry
@@ -80,39 +93,4 @@ public class Triangle extends Polygon {
 }
 
 
-
-/*@Override
-public List<Point3D> findIntersections(Ray r) 
-{
-	Point3D _p1 = new Point3D(_vertices.get(0));
-	Point3D _p2 = new Point3D(_vertices.get(1));
-	Point3D _p3 = new Point3D(_vertices.get(2));
-	Point3D P0 = r.get_point();
-	Vector v1 = new Vector(_p1.subtract(P0));
-	Vector v2 = new Vector(_p2.subtract(P0));
-	Vector v3 = new Vector(_p3.subtract(P0));			
-	Vector n1 = v1.crossProduct(v2);
-	Vector n2 = v3.crossProduct(v1);
-	Vector n3 = v2.crossProduct(v3);
-	n1.normalize();
-	n2.normalize();
-	n3.normalize();
-	
-	Vector inTheTriangle1 = new Vector(_p2.subtract(_p1));
-	Vector inTheTriangle2 = new Vector(_p3.subtract(_p1));
-	Vector normal = new Vector(inTheTriangle1.crossProduct(inTheTriangle2));
-	Plane Tplane = new Plane(_p1, normal);
-	List<Point3D> lst = Tplane.findIntersections(r);
-	if(lst == null)
-		return null;
-	Point3D P = new Point3D(lst.get(0));
-	double a = n1.dotProduct(new Vector(P.subtract(P0)));
-	double b = n2.dotProduct(new Vector(P.subtract(P0)));
-	double c = n3.dotProduct(new Vector(P.subtract(P0)));
-	if (((a>=0) && (b>=0) && (c>= 0)) || ((a<0) && (b<0) && (c<0)))
-	{
-		return lst;
-	}
-	return null;
-}*/
 

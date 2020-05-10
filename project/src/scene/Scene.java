@@ -1,8 +1,12 @@
 package scene;
 
 
+import java.util.LinkedList;
+import java.util.List;
+
 import elements.AmbientLight;
 import elements.Camera;
+import elements.LightSource;
 import geometries.Geometries;
 import geometries.Intersectable;
 import primitives.Color;
@@ -15,8 +19,6 @@ import primitives.Color;
  */
 public class Scene 
 {
-	
-	
 	//fields
 	
 	/**
@@ -43,6 +45,12 @@ public class Scene
 	 * distance between camera and scene's screen
 	 */
 	private double _distance;
+	/**
+	 * list of lights includes in scene
+	 */
+	private List<LightSource> _lights = new LinkedList<LightSource>();
+	
+	
 	
 	//constructor
 	
@@ -57,6 +65,15 @@ public class Scene
 	
 	
 	//getters and setters
+	
+	
+	/**
+	 * @return list of lights appear in the scene
+	 */
+	public List<LightSource> get_lights()
+	{
+		return new LinkedList<LightSource>(_lights);
+	}
 	
 	/**
 	 * @return scene's name
@@ -82,14 +99,14 @@ public class Scene
 	 * @return Ambient light of scene
 	 */
 	public AmbientLight get_ambientLight() {
-		return new AmbientLight(_ambientLight.get_intensity());
+		return new AmbientLight(_ambientLight.get_intensity(), 1);
 	}
 	/**
 	 * @param _ambientLight Ambient light of scene
 	 * update ambient light intensity
 	 */
 	public void set_ambientLight(AmbientLight _ambientLight) {
-		this._ambientLight = new AmbientLight(_ambientLight.get_intensity());
+		this._ambientLight = new AmbientLight(_ambientLight.get_intensity(), 1);
 	}
 	/**
 	 * @return list of geometries the scene introduce
@@ -126,6 +143,19 @@ public class Scene
 	}
 	
 	//other functions
+	
+	/**
+	 * @param lights to insert to scene
+	 * 
+	 * add lights to scene's lights list
+	 */
+	public void addLights(LightSource... lights) 
+	{
+		for (LightSource L : lights) 
+		{
+			_lights.add(L);
+		}
+	}
 	
 	/**
 	 * @param geometries collection of geometries

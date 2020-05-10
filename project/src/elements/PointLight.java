@@ -4,11 +4,22 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
-public class PointLight extends Light implements LightSource {
+public class PointLight extends Light implements LightSource 
+{
  
+	//fields
 	
+	/**
+	 * light's position
+	 */
 	protected Point3D _position;
+	/**
+	 * light's powerful definitions
+	 */
 	protected double _kC, _kL, _kQ;
+	
+	
+	//constructor
 	
 	/**
 	 * @param intensity
@@ -24,6 +35,9 @@ public class PointLight extends Light implements LightSource {
 		this._kL = kL;
 		this._kQ = kQ;
 	}
+	
+	
+	//other functions
 	
 	/**
 	 * @param p

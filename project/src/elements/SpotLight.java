@@ -5,13 +5,24 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
+ * 
+ * represents spot light
+ * 
  * @author ayala and naama
  *
  */
-public class SpotLight extends PointLight {
+public class SpotLight extends PointLight 
+{
 
+	//fields
+	
+	/**
+	 * light's direction
+	 */
 	private Vector _direction;
 
+	//constructor
+	
 	/**
 	 * Spot light constructor
 	 * 
@@ -22,10 +33,13 @@ public class SpotLight extends PointLight {
 	 * @param kQ
 	 * @param direction
 	 */
-	public SpotLight(Color intensity, Point3D position, double kC, double kL, double kQ, Vector direction) {
+	public SpotLight(Color intensity, Point3D position, Vector direction, double kC, double kL, double kQ) {
 		super(intensity, position, kC, kL, kQ);
 		this._direction = new Vector(direction);
 	}
+	
+	
+	//other functions
 	
 	/**
 	 * @param p

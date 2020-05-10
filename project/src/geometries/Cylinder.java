@@ -13,13 +13,18 @@ import primitives.*;
  * @author ayala and naama
  *
  */
-public class Cylinder extends Tube{
+public class Cylinder extends Tube
+{
 
+	//fields
+	
 	/**
 	 * _height represents the length of the cylinder
 	 */
 	private double _height;
 	
+	
+	//constructor
 	
 	/**
 	 * @param _radius represents the cylinder radius.
@@ -31,12 +36,18 @@ public class Cylinder extends Tube{
 		this._height = _height;
 	}
 
+	
+	//getters
+	
 	/**
 	 * @return the length of the cylinder.
 	 */
 	public double get_height() {
 		return _height;
 	}
+	
+	
+	//other functions
 	
 	/**
 	 * @return description of fields values.
@@ -49,9 +60,9 @@ public class Cylinder extends Tube{
 	/**
 	 *@return the vertical vector to the cylinder on the point p.
 	 */
-
 	@Override
-	public Vector getNormal(Point3D point) {
+	public Vector getNormal(Point3D point) 
+	{
 		Point3D o = this.get_axisRay().get_point();
 		Vector v = this.get_axisRay().get_direction();
 
@@ -71,45 +82,5 @@ public class Cylinder extends Tube{
 		return point.subtract(o).normalize();
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-//	@Override
-//	public Vector getNormal(Point3D p) {
-//		Vector n = null;
-//		if(p.distance(this.get_axisRay().get_point())<this.get_radius())
-//		{
-//			n = new Vector(p.add(this.get_axisRay().get_direction()));
-//		}
-//		else if(p.distance(this.get_axisRay().get_point().add(this.get_axisRay().get_direction().scale(_height)))<this.get_radius()) 
-//		{
-//			n = new Vector(p.add(this.get_axisRay().get_direction()));
-//		}
-//		else
-//		{
-//			Point3D p0 = this.get_axisRay().get_point();
-//	    	Vector v = this.get_axisRay().get_direction();
-//	    	//t = v (P – P0)
-//	    	double t = p.subtract(p0).dotProduct(v);
-//	    	// O = P0 + tv.
-//	    	Point3D o=null;
-//	    	if (isZero(t))// if it's close to 0, we'll get ZERO vector exception
-//	        {
-//	    		throw new IllegalArgumentException("ERROR: Tube.getNormal: t is zero");
-//	        }
-//	    	o = p0.add(v.scale(t));
-//			n = p.subtract(o).normalize();
-//		}
-//		return new Vector(n);
-//	}
-
-
-	
-
-
 	
 }

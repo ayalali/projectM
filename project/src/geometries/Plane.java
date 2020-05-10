@@ -11,17 +11,34 @@ import primitives.*;
  * @author ayala and naama
  *
  */
-public class Plane extends Geometry {
+public class Plane extends Geometry 
+{
 
+	//fields
+	 
 	/**
 	* _p is 3D cartesian coordinate on the plane
-	* _normal is a vertical vector to the plane
 	*
-	* together they are represents a plane by mathematical definition.
+	* both fields represents together a plane by mathematical definition.
 	*/
 	private Point3D _p;
+	/**
+	 * _normal is a vertical vector to the plane
+	 */
 	private Vector _normal;
+
 	
+	//constructors
+	
+	/**
+	*
+	*
+	*/
+	public Plane(Color _emmission, Material _material, Point3D p1, Point3D p2, Point3D p3) {
+		this(p1, p2, p3);
+		this._emmission = new Color(_emmission);
+		this._material = new Material(_material);
+	}
 	/**
 	* @param p1 3D cartesian coordinate on the plane
 	* @param p2 3D cartesian coordinate on the plane
@@ -30,26 +47,39 @@ public class Plane extends Geometry {
 	* the constructor calculates the normal and save one of the
 	* points in order to represent the plane with vector and point.
 	*/
-	public Plane(Point3D p1, Point3D p2, Point3D p3) {
+	public Plane(Point3D p1, Point3D p2, Point3D p3) 
+	{
+		super();
 		_p = new Point3D(p1);
 		Vector v1 = p2.subtract(p1);
 		Vector v2 = p3.subtract(p1);
 		Vector v = v1.crossProduct(v2);
 		_normal = v.normalized();
 	}
-	
+	/**
+	 * @param _emmission geometry's color
+	 * @param _material geometry's material
+	 * @param _p 3D Cartesian coordinate on the plane
+	 * @param _normal vertical vector to the plane
+	 */
+	public Plane(Color _emmission, Material _material, Point3D _p, Vector _normal) 
+	{
+		super(_emmission, _material);
+		this._p = new Point3D(_p);
+		this._normal = new Vector(_normal);
+	}
 	/**
 	* @param p - 3D Cartesian coordinate on the plane
 	* @param v - vertical vector to the plane
 	*/
 	public Plane(Point3D p, Vector v)
 	{
+		super();
 		_p = new Point3D(p);
 		_normal = new Vector(v);
 	}
-	
 	/**
-	 * @param c - The color of the plane
+	 * @param c - Plane's color
 	 * @param p - 3D Cartesian coordinate on the plane
 	 * @param v - vertical vector to the plane
 	 */
@@ -57,7 +87,11 @@ public class Plane extends Geometry {
 	{
 		this(p,v);
 		this._emmission = new Color(c);
+		this._material = new Material(0,0,0);
 	}
+	
+	
+	//getters
 	
 	/**
 	* @return 3D cartesian coordinate on the plane
@@ -73,6 +107,8 @@ public class Plane extends Geometry {
 		return new Vector(_normal);
 	}
 	
+	
+	//other functions
 	
 	/**
 	* @return vertical vector to the plane, on the 3D point p.

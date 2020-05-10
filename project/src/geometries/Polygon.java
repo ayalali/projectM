@@ -11,7 +11,11 @@ import static primitives.Util.*;
  * 
  * @author Dan
  */
-public class Polygon extends Geometry {
+public class Polygon extends Geometry 
+{
+	
+	//fields
+	
     /**
      * List of polygon's vertices
      */
@@ -21,6 +25,9 @@ public class Polygon extends Geometry {
      */
     protected Plane _plane;
 
+    
+    //constructors
+    
     /**
      * Polygon constructor based on vertices list. The list must be ordered by edge
      * path. The polygon must be convex.
@@ -42,7 +49,9 @@ public class Polygon extends Geometry {
      *                                  <li>The polygon is concave (not convex></li>
      *                                  </ul>
      */
-    public Polygon(Point3D... vertices) {
+    public Polygon(Point3D... vertices) 
+    {
+    	super();
         if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         _vertices = List.of(vertices);
@@ -80,7 +89,6 @@ public class Polygon extends Geometry {
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
     }
-
     /**
      * @param c the color of the polygon
      * @param vertices vertices list of vertices according to their order by edge path
@@ -90,11 +98,20 @@ public class Polygon extends Geometry {
     	this._emmission = new Color(c);
     }
     
+    
+    //other functions
+    
+    /**
+     *
+     */
     @Override
     public Vector getNormal(Point3D point) {
         return _plane.getNormal();
     }
 
+	/**
+	 *
+	 */
 	@Override
 	public List<GeoPoint> findIntersections(Ray r) {
 		 List<GeoPoint> intersections = _plane.findIntersections(r);

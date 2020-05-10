@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import primitives.Color;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -14,13 +15,19 @@ import primitives.Vector;
  * @author ayala and naama
  *
  */
-public class Sphere extends RadialGeometry{
+public class Sphere extends RadialGeometry
+{
+	
+	//fields
 	
 	/**
 	 * the center of the sphere by 3D Cartesian coordinate.
 	 */
 	private Point3D _center;
 
+	
+	//constructors
+	
 	/**
 	 * @param _radius the radius of the sphere
 	 * @param _center is the center of the sphere by 3D Cartesian coordinate
@@ -28,8 +35,8 @@ public class Sphere extends RadialGeometry{
 	public Sphere(double _radius, Point3D _center) {
 		super(_radius);
 		this._center = new Point3D(_center);
+		this._material = new Material(0,0,0);
 	}
-
 	/**
 	 * @param color the color of the sphere
 	 * @param r the radius of the sphere
@@ -38,15 +45,33 @@ public class Sphere extends RadialGeometry{
 	public Sphere(Color color, double r, Point3D c) {
 		this(r,c);
 		this._emmission = new Color(color);
+		this._material = new Material(0, 0, 0);
 	}
+	/**
+	 * @param color the color of the sphere
+	 * @param r the radius of the sphere
+	 * @param p is the center of the sphere by 3D Cartesian coordinate
+	 * @param m is sphere's material
+	 */
+	public Sphere(Color color, Material m, double r, Point3D p) {
+		super(color, m, r);
+		this._center = new Point3D(p);
+	}
+	
+	
+	//getters
 	
 	/**
 	 * @return the center of the sphere by 3D Cartesian coordinate
+	 * 
 	 */
 	public Point3D get_center() {
 		return new Point3D(_center);
 	}
 
+	
+	//other functions
+	
 	/**
 	 *@return the sphere fields values
 	 */

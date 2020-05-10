@@ -9,8 +9,10 @@ import primitives.Color;
  * @author ayala and naama
  *
  */
-public class AmbientLight extends Light{
+public class AmbientLight extends Light
+{
 
+	//constructors
 	
 	/**
 	 * @param _intensity (Ia) the color we need to considered of the light in the scene
@@ -18,7 +20,8 @@ public class AmbientLight extends Light{
 	 * 
 	 * Ip = Ia * Ka
 	 */
-	public AmbientLight(Color intensity, double ka) {
+	public AmbientLight(Color intensity, double ka) 
+	{
 		super(new Color(intensity.scale(ka)));
 	}
 	
