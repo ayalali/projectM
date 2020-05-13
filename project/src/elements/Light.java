@@ -28,7 +28,7 @@ public abstract class Light {
 	 * @return _intensity (Ip) color
 	 */
 	public Color get_intensity() {
-		return _intensity;
+		return new Color(_intensity);
 	}
 
 	
@@ -39,8 +39,8 @@ public abstract class Light {
 	 * 
 	 * @param _intensity (Ip) the color we need to considered of the light in the scene
 	 */
-	public Light(Color _intensity) {
-		this._intensity = _intensity;
+	public Light(Color intensity) {
+		this._intensity = new Color(intensity);
 	}
 
 	

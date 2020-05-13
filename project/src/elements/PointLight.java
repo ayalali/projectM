@@ -4,29 +4,30 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * 
+ * represents point light  (such as a bulb)
+ * 
+ * @author ayala and naama
+ */
 public class PointLight extends Light implements LightSource 
 {
  
 	//fields
 	
-	/**
-	 * light's position
-	 */
 	protected Point3D _position;
-	/**
-	 * light's powerful definitions
-	 */
+
 	protected double _kC, _kL, _kQ;
 	
 	
 	//constructor
 	
 	/**
-	 * @param intensity
-	 * @param position
-	 * @param kC
-	 * @param kL
-	 * @param kQ
+	 * @param intensity the intensity of the light
+	 * @param position light's position
+	 * @param kC light's powerful definition
+	 * @param kL light's powerful definition
+	 * @param kQ light's powerful definition
 	 */
 	public PointLight(Color intensity, Point3D position, double kC, double kL, double kQ) {
 		super(intensity);
@@ -40,21 +41,31 @@ public class PointLight extends Light implements LightSource
 	//other functions
 	
 	/**
-	 * @param p
-	 * @return
+	 * @param p the point of the geometry
+	 * @return (IL) the intensity color of the point
+	 * 
+	 * 
+	 * IL = I0 / (Kc + Kl*d + Kq*d^2)
+	 * 
 	 */
 	@Override
 	public Color getIntensity(Point3D p) {
-		return null;
+		 double dsquared = p.distanceSquared(_position);
+	     double d = p.distance(_position);
+
+	     return (_intensity.reduce(_kC + _kL * d + _kQ * dsquared));
 	}
 	
 	/**
-	 * @param p
-	 * @return
+	 * @param p the point of the geometry
+	 * @return the normalize vector from the light to p
 	 */
 	@Override
 	public Vector getL(Point3D p) {
-		return null;
+		if (p.equals(_position)) {
+            return null;
+        }
+        return p.subtract(_position).normalize();
 	}
 
 }

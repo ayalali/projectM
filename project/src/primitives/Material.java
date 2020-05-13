@@ -11,17 +11,8 @@ public class Material
 {
 	//fields
 	
-	/**
-	 * 
-	 */
 	private double _kD;
-	/**
-	 * 
-	 */
 	private double _kS;
-	/**
-	 * 
-	 */
 	private int _nShininess;
 
 	

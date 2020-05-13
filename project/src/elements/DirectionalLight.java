@@ -8,6 +8,9 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
+ * 
+ * represents directional light - like Sun
+ * 
  * @author ayala and naama
  *
  */
@@ -25,8 +28,8 @@ public class DirectionalLight extends Light implements LightSource
 	//constructor
 	
 	/**
-	 * @param intensity
-	 * @param direction
+	 * @param intensity the intensity of the light
+	 * @param direction light's direction
 	 */
 	public DirectionalLight(Color intensity, Vector direction) {
 		super(intensity);
@@ -37,21 +40,25 @@ public class DirectionalLight extends Light implements LightSource
 	//other functions
 	
 	/**
-	 * @param p
-	 * @return
+	 * @param p the point of the geometry
+	 * @return (IL) new Color of the intensity of p
+	 * 
+	 * 
+	 * IL = I0
+	 * 
 	 */
 	@Override
 	public Color getIntensity(Point3D p) {
-		return null;
+		return super.get_intensity();
 	}
 	
 	/**
-	 * @param p
-	 * @return
+	 * @param p the point of the geometry
+	 * @return the normalize vector from the light to p
 	 */
 	@Override
 	public Vector getL(Point3D p) {
-		return null;
+		return _direction;
 	}
 
 }
