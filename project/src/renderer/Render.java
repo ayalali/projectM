@@ -109,7 +109,6 @@ public class Render
 			return color;
 		}
 		
-		Geometry geometry = p._geometry;
 		Material material = p._geometry.get_material();
 		double Kd = material.get_kD();
 		double Ks = material.get_kS();
