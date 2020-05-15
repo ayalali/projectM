@@ -2,14 +2,23 @@ package renderer;
 
 import primitives.*;
 import scene.Scene;
-
+import primitives.Util;
 import java.util.List;
 
 import elements.Camera;
+import elements.LightSource;
+import geometries.Geometry;
 import geometries.Intersectable;
 import geometries.Intersectable.GeoPoint;
 
-public class Render {
+/**
+ * includes all functions to render the image
+ * 
+ * @author ayala
+ *
+ */
+public class Render 
+{
 	
 	/**
 	 * write the pixels into a file
@@ -70,13 +79,109 @@ public class Render {
 	}
 	
 	/**
-	 * Returns the color of one 3D point
+	 * Ia * Ka = ambient light
 	 * 
-	 * @param p point
-	 * @return the color of the point
+	 * Ie = emmission light of the geometry
+	 * 
+	 * Kd * |l*n| * Il = diffuse light
+	 * 
+	 * Ks * (max(0, -v*r))^ Nsh * Il = specular light
+	 * 
+	 * r = l - 2 (l*n) * n
+	 * 
+	 * @param p point and its geometry
+	 * @return the color of the point = Ia * Ka + Ie + Kd * |l*n| * Il + Ks * (max(0, -v*r))^ Nsh * Il
+	 * 
 	 */
-	public Color calcColor(GeoPoint p) {
-		return _scene.get_ambientLight().get_intensity().add(p._geometry.get_emmission());
+	public Color calcColor(GeoPoint p) 
+	{
+		List<LightSource> lights = _scene.get_lights();
+		
+		// ambient light (Ia * Ka)
+		Color color = _scene.get_ambientLight().get_intensity(); 
+		
+		// add emission of geometry (Ie)
+		color = color.add(p._geometry.get_emmission()); 
+		
+		//if there is no source lights
+		if (_scene.get_lights() == null)  
+		{
+			return color;
+		}
+		
+		Geometry geometry = p._geometry;
+		Material material = p._geometry.get_material();
+		double Kd = material.get_kD();
+		double Ks = material.get_kS();
+		double Nsh = material.get_nShininess();
+		
+		//geometry normal
+		Vector n = p._geometry.getNormal(p._point);
+		
+		//Vto of camera - vector toward the view plane
+		Vector v = _scene.get_camera().getVtoward();
+		
+		for (LightSource l : lights) 
+		{
+			//light direction:
+			Vector Lvector = l.getL(p._point); 
+			
+			//light intensity:
+			Color Il = l.getIntensity(p._point);
+			
+			//r = l - 2 (l*n) * n
+			Vector r = Lvector.subtract(n.scale(2* Lvector.dotProduct(n)));
+			
+			double nl = Util.alignZero(n.dotProduct(Lvector));
+            double nv = Util.alignZero(n.dotProduct(v));
+
+            //only if they have the same sign
+            
+            if ((nl > 0 && nv > 0) || (nl < 0 && nv < 0))
+            {
+            	//add diffuse
+            	color = color.add(diffuse(Kd, nl, Il));
+            	
+            	//add specular
+    			color = color.add(specular(Ks, v, r, Nsh, Il));
+            }
+			
+		}
+		return new Color(color);
+	}
+	
+	/**
+	 * @param Kd diffuse power (material field)
+	 * @param l light direction (normalized vector, getL)
+	 * @param n normal vector to the geometry
+	 * @param Il getIntensity of the light
+	 * 
+	 * @return diffuse light color of one light object on specific point = Kd * |l*n| * Il
+	 */
+	public Color diffuse(double Kd, double nl, Color Il)
+	{
+		return Il.scale(Kd* Math.abs(nl));
+	}
+	
+	/**
+	 * @param Ks specular power (material field)
+	 * @param v Vto of camera (normalized vector)
+	 * @param r specular vector (l hits the geometry, 
+	 * and r get out from hit point in the opposite direction).
+	 * r = l - 2 (l*n) * n
+	 * @param Nsh n shininess of material (how much its a shiny material)
+	 * @param Il getIntensity of the light
+	 * 
+	 * @return specular light color of one light object on specific point = Ks * (max(0, -v*r))^ Nsh * Il
+	 */
+	public Color specular(double Ks, Vector v, Vector r, double Nsh, Color Il)
+	{
+		double vr = (-1) * Util.alignZero(v.dotProduct(r));
+		if (vr <= 0) 
+		{
+			return new Color(0,0,0); //Black
+		}
+		return Il.scale(Ks * Math.pow(vr, Nsh));
 	}
 	
 	/**

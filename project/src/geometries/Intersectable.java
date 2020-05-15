@@ -7,6 +7,7 @@ import java.util.List;
 
 import primitives.Point3D;
 import primitives.Ray;
+import geometries.Geometry;
 
 /**
  * Intersectable is a common interface for all geometries that are able
@@ -41,7 +42,7 @@ public interface Intersectable
 		 */
 		public GeoPoint(Geometry geometry, Point3D point) {
 			this._geometry = geometry;
-			this._point = point;
+			this._point = new Point3D(point);
 		}
 
 		@Override
