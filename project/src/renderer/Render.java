@@ -128,9 +128,6 @@ public class Render
 			//light intensity:
 			Color Il = l.getIntensity(p._point);
 			
-			//r = l - 2 (l*n) * n
-			Vector r = Lvector.subtract(n.scale(2* Lvector.dotProduct(n)));
-			
 			double nl = Util.alignZero(n.dotProduct(Lvector));
             double nv = Util.alignZero(n.dotProduct(v));
 
@@ -138,6 +135,9 @@ public class Render
             
             if ((nl > 0 && nv > 0) || (nl < 0 && nv < 0))
             {
+            	//r = l - 2 (l*n) * n
+    			Vector r = Lvector.subtract(n.scale(2* Lvector.dotProduct(n)));
+            	
             	//add diffuse
             	color = color.add(diffuse(Kd, nl, Il));
             	

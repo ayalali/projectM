@@ -12,7 +12,7 @@ import scene.Scene;
 /**
  * Test rendering abasic image
  * 
- * @author Dan
+ * @author ayala and naama
  */
 public class RenderTests {
 

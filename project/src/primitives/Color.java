@@ -165,7 +165,7 @@ public class Color {
      */
     public Color reduce(double k) {
         if (k < 1)
-            throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
+            throw new IllegalArgumentException("Can't scale a color by a number lower than 1");
         double r = _r / k;
         double g = _g / k;
         double b = _b / k;
