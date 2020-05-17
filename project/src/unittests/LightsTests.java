@@ -18,7 +18,7 @@ public class LightsTests {
     /**
      * Produce a picture of a sphere lighted by a directional light
      */
-/*
+
     @Test
     public void sphereDirectional() {
         Scene scene = new Scene("Test scene");
@@ -38,11 +38,11 @@ public class LightsTests {
         render.renderImage();
         render.writeToImage();
     }
-*/
+
     /**
      * Produce a picture of a sphere lighted by a point light
      */
- /*   @Test
+    @Test
     public void spherePoint() {
         Scene scene = new Scene("Test scene");
         scene.set_camera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -61,11 +61,11 @@ public class LightsTests {
         render.renderImage();
         render.writeToImage();
     }
-*/
+
     /**
      * Produce a picture of a sphere lighted by a spot light
      */
- /*   @Test
+   @Test
     public void sphereSpot() {
         Scene scene = new Scene("Test scene");
         scene.set_camera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -87,10 +87,11 @@ public class LightsTests {
     }
 
     
-    
+   
     /**
      * Produce a picture of a two triangles lighted by a directional light
      */
+
     @Test
     public void trianglesDirectional() {
         Scene scene = new Scene("Test scene");
@@ -117,6 +118,7 @@ public class LightsTests {
     /**
      * Produce a picture of a two triangles lighted by a point light
      */
+
     @Test
     public void trianglesPoint() {
         Scene scene = new Scene("Test scene");
@@ -145,6 +147,7 @@ public class LightsTests {
     /**
      * Produce a picture of a two triangles lighted by a spot light
      */
+
     @Test
     public void trianglesSpot() {
         Scene scene = new Scene("Test scene");
@@ -169,5 +172,5 @@ public class LightsTests {
         render.renderImage();
         render.writeToImage();
     }
-    
+   
 }

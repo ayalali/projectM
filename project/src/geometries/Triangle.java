@@ -44,6 +44,7 @@ public class Triangle extends Polygon
 	public Triangle(Color c, Material m, Point3D... vertices) 
 	{
 		this(c, vertices);
+		this._material = new Material(m);
 	}
 	
 	//other functions
