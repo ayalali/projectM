@@ -68,5 +68,15 @@ public class SpotLight extends PointLight
 	public Vector getL(Point3D p) {
 		return super.getL(p);
 	}
+	
+	/**
+	 * @param point the point of the geometry
+	 * @return the distance between the point and the spotLight
+	 */
+	@Override
+	public double getDistance(Point3D point) {
+		return super.getDistance(point);
+	}
+
 
 }

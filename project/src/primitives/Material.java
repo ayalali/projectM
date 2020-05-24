@@ -11,6 +11,8 @@ public class Material
 {
 	//fields
 	
+	private double _kT;
+	private double _kR;
 	private double _kD;
 	private double _kS;
 	private int _nShininess;
@@ -19,12 +21,24 @@ public class Material
 	//constructors
 	
 	/**
+	 * @param kD
+	 * @param kS
+	 * @param nShininess
+	 */
+	public Material(double kD, double kS, int nShininess) 
+	{
+		this(0, 0, kD, kS, nShininess);
+	}
+	/**
+	 * @param _kT
+	 * @param _kR
 	 * @param _kD
 	 * @param _kS
 	 * @param _nShininess
 	 */
-	public Material(double _kD, double _kS, int _nShininess) 
-	{
+	public Material(double _kT, double _kR, double _kD, double _kS, int _nShininess) {
+		this._kT = _kT;
+		this._kR = _kR;
 		this._kD = _kD;
 		this._kS = _kS;
 		this._nShininess = _nShininess;
@@ -40,7 +54,18 @@ public class Material
 	}
 
 	//getters
-	
+	/**
+	 * @return kT
+	 */
+	public double get_kT() {
+		return _kT;
+	}
+	/**
+	 * @return kR
+	 */
+	public double get_kR() {
+		return _kR;
+	}
 	/**
 	 * @return kD
 	 */

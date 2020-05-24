@@ -1,6 +1,8 @@
 package renderer;
 
 import primitives.*;
+import static primitives.Util.*;
+
 import scene.Scene;
 import primitives.Util;
 import java.util.List;
@@ -14,11 +16,25 @@ import geometries.Intersectable.GeoPoint;
 /**
  * includes all functions to render the image
  * 
- * @author ayala
+ * @author ayala and naama
  *
  */
 public class Render 
 {
+	
+	/**
+	 * Permanent for stop condition in recursion
+	 */
+	private static final int MAX_CALC_COLOR_LEVEL = 10;
+	/**
+	 * Permanent for stop condition in recursion
+	 */
+	private static final double MIN_CALC_COLOR_K = 0.001;
+	
+	/**
+	 * Permanent to move the start of the rays for shadow, reflection and refraction rays
+	 */
+	private static final double DELTA = 0.1;
 	
 	/**
 	 * write the pixels into a file
@@ -135,14 +151,17 @@ public class Render
             
             if ((nl > 0 && nv > 0) || (nl < 0 && nv < 0))
             {
-            	//r = l - 2 (l*n) * n
-    			Vector r = Lvector.subtract(n.scale(2* Lvector.dotProduct(n)));
+            	if(unshaded(l, Lvector, n, p)) {
+            		
+            		//r = l - 2 (l*n) * n
+            		Vector r = Lvector.subtract(n.scale(2* Lvector.dotProduct(n)));
             	
-            	//add diffuse
-            	color = color.add(diffuse(Kd, nl, Il));
+            		//add diffuse
+            		color = color.add(diffuse(Kd, nl, Il));
             	
-            	//add specular
-    			color = color.add(specular(Ks, v, r, Nsh, Il));
+            		//add specular
+            		color = color.add(specular(Ks, v, r, Nsh, Il));
+            	}
             }
 			
 		}
@@ -229,5 +248,34 @@ public class Render
 	 */
 	public void writeToImage() {
 		_imageWriter.writeToImage();
+	}
+	
+	
+	/**
+	 * @param light - light source
+	 * @param l - light direction
+	 * @param n - geometry normal
+	 * @param gp - the point of the geometry
+	 * @return if the point is not shaded
+	 */
+	private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint gp) {
+		
+		Vector lightDiraction = l.scale(-1);
+		Vector delta = n.scale(n.dotProduct(lightDiraction)>0?DELTA:-DELTA);
+		Point3D point = gp._point.add(delta);
+		Ray lightRay = new Ray(point, lightDiraction);
+		
+		List<GeoPoint> intersections = _scene.get_geometries().findIntersections(lightRay);
+		
+		if (intersections == null) return true;
+		
+		double lightDistance = light.getDistance(gp._point);
+		
+		for (GeoPoint g : intersections) {
+			if (alignZero(g._point.distance(gp._point) - lightDistance) <= 0)
+					return false;
+		}
+		return true;
+
 	}
 }
