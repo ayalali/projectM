@@ -2,6 +2,7 @@ package primitives;
 
 import static primitives.Util.*;
 
+
 /**
  * Ray class represent ray which is a point and direction vector.
  * 

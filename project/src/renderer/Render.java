@@ -3,6 +3,7 @@ package renderer;
 import primitives.*;
 import static primitives.Util.*;
 
+
 import scene.Scene;
 import primitives.Util;
 import java.util.List;
