@@ -43,7 +43,7 @@ public class Material
 	 */
 	public Material(double kD, double kS, int nShininess) 
 	{
-		this(0, 0, kD, kS, nShininess);
+		this(kD, kS, nShininess, 0, 0);
 	}
 	/**
 	 * @param _kT
@@ -52,7 +52,8 @@ public class Material
 	 * @param _kS
 	 * @param _nShininess
 	 */
-	public Material(double _kT, double _kR, double _kD, double _kS, int _nShininess) {
+	public Material(double _kD, double _kS, int _nShininess, double _kT, double _kR) 
+	{
 		this._kT = _kT;
 		this._kR = _kR;
 		this._kD = _kD;
