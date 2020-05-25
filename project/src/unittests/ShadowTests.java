@@ -155,7 +155,7 @@ public class ShadowTests {
         scene.addLights(
                 new SpotLight(
                         new Color(400, 240, 0), //
-                        new Point3D(-100, 100, -200),
+                        new Point3D(-90, 90, -170),
                         new Vector(1, -1, 3),
                         1, 1E-5, 1.5E-7));
 
@@ -193,7 +193,7 @@ public class ShadowTests {
         scene.addLights(
                 new SpotLight(
                         new Color(400, 240, 0), //
-                        new Point3D(-100, 100, -200),
+                        new Point3D(-73, 73, -55),
                         new Vector(1, -1, 3),
                         1, 1E-5, 1.5E-7));
 
