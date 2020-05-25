@@ -11,10 +11,25 @@ public class Material
 {
 	//fields
 	
+	/**
+	 * transparency coefficient
+	 */
 	private double _kT;
+	/**
+	 * reflection coefficient
+	 */
 	private double _kR;
+	/**
+	 * diffuse coefficient
+	 */
 	private double _kD;
+	/**
+	 * specular coefficient
+	 */
 	private double _kS;
+	/**
+	 * Shininess coefficient
+	 */
 	private int _nShininess;
 
 	

@@ -7,6 +7,7 @@ import scene.Scene;
 import primitives.Util;
 import java.util.List;
 
+
 import elements.Camera;
 import elements.LightSource;
 import geometries.Geometry;
@@ -278,4 +279,44 @@ public class Render
 		return true;
 
 	}
+	
+	/**
+	 * @param r ray sent toward geometry
+	 * @param g includes geometry and intersection point (between ray and geometry).
+	 * 
+	 * 
+	 * this function need to be called only if there is 
+	 * at least one intersection point with ray r.
+	 * 
+	 * @return reflected ray = v-2(v*n)*n
+	 * 
+	 */
+	private Ray reflectedRay(Ray r, GeoPoint g)
+	{
+		Vector v = r.get_direction();
+		Point3D p = g._point;
+		Vector n = g._geometry.getNormal(p);
+		
+		double temp = v.dotProduct(n); //(v*n)
+		if (temp == 0) 
+		{
+			return null;
+		}
+		
+		Vector vector = v.subtract(n.scale(2 * temp));//v-2(v*n)*n
+		return new Ray(p, vector, n);
+	}
+	
+	/**
+	 * @param r ray sent toward the geometry
+	 * @param geoPoint geometry and it intersection point
+	 * @return refracted ray.
+	 * direction = r direction (normalized), 
+	 * point = intersect point + normal * DELTA
+	 */
+	private Ray refractedRay (Ray r, GeoPoint geoPoint)
+	{
+		return new Ray(geoPoint._point, r.get_direction(), geoPoint._geometry.getNormal(geoPoint._point));
+	}
+	
 }

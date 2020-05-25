@@ -22,6 +22,14 @@ public class Ray
 	Vector _direction;
 	
 	/**
+	 * Permanent to move the start of the rays for shadow, reflection and refraction rays
+	 */
+	private static final double DELTA = 0.1;
+	
+	
+	//constructors
+	
+	/**
 	 * Ray constructor based on Point3D and Vector
 	 * 
 	 * @param _point the head of the ray
@@ -44,7 +52,25 @@ public class Ray
 		this._direction = new Vector(r._direction);
 	}
 	
-
+	/**
+	 * @param p ray point
+	 * @param direction ray direction
+	 * @param n normal
+	 */
+	public Ray(Point3D p, Vector direction, Vector n)
+	{
+		double temp = n.dotProduct(direction);
+		double delta = DELTA;
+		if (temp <= 0) 
+		{
+			delta = -delta;
+		}
+		Vector deltaNormal = n.scale(delta);
+		
+		_point = p.add(deltaNormal);
+		_direction = new Vector(direction).normalized();
+	}
+	
 	/**
 	 * @return the head of the ray
 	 */
