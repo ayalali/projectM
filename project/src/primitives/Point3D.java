@@ -127,7 +127,9 @@ public class Point3D
 	 */
 	public double distanceSquared(Point3D p)
 	{
-		return (get_x().get()-p.get_x().get()) * (get_x().get()-p.get_x().get())+(get_y().get()-p.get_y().get())*(get_y().get()-p.get_y().get())+(get_z().get()-p.get_z().get()) * (get_z().get()-p.get_z().get());
+		return (get_x().get()-p.get_x().get()) * (get_x().get()-p.get_x().get()) +
+			   (get_y().get()-p.get_y().get()) * (get_y().get()-p.get_y().get()) +
+			   (get_z().get()-p.get_z().get()) * (get_z().get()-p.get_z().get());
 	}
 	
 	/**

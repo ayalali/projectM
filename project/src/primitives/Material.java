@@ -12,45 +12,30 @@ public class Material
 {
 	//fields
 	
-	/**
-	 * transparency coefficient
-	 */
 	private double _kT;
-	/**
-	 * reflection coefficient
-	 */
 	private double _kR;
-	/**
-	 * diffuse coefficient
-	 */
 	private double _kD;
-	/**
-	 * specular coefficient
-	 */
 	private double _kS;
-	/**
-	 * Shininess coefficient
-	 */
 	private int _nShininess;
 
 	
 	//constructors
 	
 	/**
-	 * @param kD
-	 * @param kS
-	 * @param nShininess
+	 * @param kD diffuse coefficient
+	 * @param kS specular coefficient
+	 * @param nShininess Shininess coefficient
 	 */
 	public Material(double kD, double kS, int nShininess) 
 	{
 		this(kD, kS, nShininess, 0, 0);
 	}
 	/**
-	 * @param _kT
-	 * @param _kR
-	 * @param _kD
-	 * @param _kS
-	 * @param _nShininess
+	 * @param _kT transparency coefficient
+	 * @param _kR reflection coefficient
+	 * @param _kD diffuse coefficient
+	 * @param _kS specular coefficient
+	 * @param _nShininess Shininess coefficient
 	 */
 	public Material(double _kD, double _kS, int _nShininess, double _kT, double _kR) 
 	{
@@ -67,7 +52,7 @@ public class Material
 	 */
 	public Material(Material m)
 	{
-		this(m._kD, m._kS, m._nShininess);
+		this(m._kD, m._kS, m._nShininess, m._kT, m._kR);
 	}
 
 	//getters

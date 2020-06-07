@@ -55,7 +55,7 @@ public abstract class Geometry implements Intersectable
 	public Geometry(Color _emmission, Material _material) 
 	{
 		this._emmission = new Color(_emmission);
-		this._material = new Material(_material.get_kD(), _material.get_kS(), _material.get_nShininess());
+		this._material = new Material(_material.get_kD(), _material.get_kS(), _material.get_nShininess(), _material.get_kT(), _material.get_kR());
 	}
 
 	public Geometry() {

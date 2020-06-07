@@ -5,12 +5,13 @@ import static primitives.Util.*;
 
 
 import scene.Scene;
-import primitives.Util;
+
 import java.util.List;
 
 
-import elements.Camera;
+import elements.*;
 import elements.LightSource;
+import geometries.Geometry;
 import geometries.Intersectable;
 import geometries.Intersectable.GeoPoint;
 
@@ -37,20 +38,15 @@ public class Render
 	 */
 	private static final double DELTA = 0.1;
 	
-	/**
-	 * write the pixels into a file
-	 */
+
 	ImageWriter _imageWriter;
-	/**
-	 * contains all the elements in the image
-	 */
 	Scene _scene;
 	
 	/**
 	 * Render constructor
 	 * 
-	 * @param imageWriter 
-	 * @param scene
+	 * @param imageWriter write the pixels into a file
+	 * @param scene contains all the elements in the image
 	 */
 	public Render(ImageWriter imageWriter, Scene scene) {
 		_imageWriter = imageWriter;
@@ -68,8 +64,9 @@ public class Render
 		Camera camera = _scene.get_camera();
 		Intersectable geometries = _scene.get_geometries();
 		java.awt.Color background = _scene.get_background().getColor();
-		
+		AmbientLight ambLight = _scene.get_ambientLight();
 		double  distance = _scene.get_distance();
+		
 		int nX = _imageWriter.getNx();
 		int nY = _imageWriter.getNy();
 		double width = _imageWriter.getWidth();
@@ -96,9 +93,9 @@ public class Render
 	
 	
 	/**
-	 * @param gp
+	 * @param gp point and its geometry
 	 * @param ray
-	 * @return
+	 * @return the color of the point 
 	 */
 	private Color calcColor(GeoPoint gp, Ray ray)
 	{
@@ -135,16 +132,13 @@ public class Render
 	 */
 	public Color calcColor(GeoPoint p, Ray ray, int level, double k) 
 	{
-		if (level == 0 || k < MIN_CALC_COLOR_K) 
-		{
-			return Color.BLACK;
-		}
+	
 		List<LightSource> lights = _scene.get_lights();
 		
 		// add emission of geometry (Ie)
-		Color color = p._geometry.get_emmission(); 
+		Color color = new Color(p._geometry.get_emmission()); 
 		
-		Material material = p._geometry.get_material();
+		Material material = new Material(p._geometry.get_material());
 		double Kd = material.get_kD();
 		double Ks = material.get_kS();
 		double Nsh = material.get_nShininess();
@@ -185,17 +179,14 @@ public class Render
             }
 		}//end lights loop
 		
-		if (level == 1) 
-		{
-			return Color.BLACK;
-		}
+		if (level == 1) return Color.BLACK;
 		
 		double kr = p._geometry.get_material().get_kR();
 		double kkr = k * kr;
 		
 		if (kkr > MIN_CALC_COLOR_K) 
 		{
-			Ray reflectedRay = reflectedRay(ray, p);
+			Ray reflectedRay = reflectedRay(p._point, ray, n);
 			GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
 			if (reflectedPoint != null) 
 			{
@@ -208,7 +199,7 @@ public class Render
 		
 		if (kkt > MIN_CALC_COLOR_K)
 		{
-			Ray refractedRay = refractedRay(ray, p);
+			Ray refractedRay = refractedRay(p._point, ray, n);
 			GeoPoint refractedPoint = findClosestIntersection(refractedRay);
 			if (refractedPoint != null) 
 			{
@@ -217,7 +208,10 @@ public class Render
 		}
 		
 		return new Color(color);
+		
+
 	}
+
 	
 	/**
 	 * @param Kd diffuse power (material field)
@@ -333,10 +327,11 @@ public class Render
 
 	}
 	
+	
 	/**
-	 * @param r ray sent toward geometry
-	 * @param g includes geometry and intersection point (between ray and geometry).
-	 * 
+	 * @param pointGeo normal to the geometry
+	 * @param ray the point of the geometry
+	 * @param n ray sent toward the geometry
 	 * 
 	 * this function need to be called only if there is 
 	 * at least one intersection point with ray r.
@@ -344,37 +339,40 @@ public class Render
 	 * @return reflected ray = v-2(v*n)*n
 	 * 
 	 */
-	private Ray reflectedRay(Ray r, GeoPoint g)
+	private Ray reflectedRay(Point3D point, Ray r, Vector n)
 	{
 		Vector v = r.get_direction();
-		Point3D p = g._point;
-		Vector n = g._geometry.getNormal(p);
+		double vn = v.dotProduct(n); //(v*n)
 		
-		double temp = v.dotProduct(n); //(v*n)
-		if (temp == 0) 
-		{
-			return null;
-		}
+		if (vn == 0) return null;
 		
-		Vector vector = v.subtract(n.scale(2 * temp));//v-2(v*n)*n
-		return new Ray(p, vector, n);
+		Vector vector = v.subtract(n.scale(2 * vn));//v-2(v*n)*n
+		return new Ray(point, vector, n);
 	}
 	
+
 	/**
+	 * @param n normal to the geometry
+	 * @param point the point of the geometry
 	 * @param r ray sent toward the geometry
-	 * @param geoPoint geometry and it intersection point
+	 * 
+	 * 
 	 * @return refracted ray.
+	 * 
+	 * 
 	 * direction = r direction (normalized), 
 	 * point = intersect point + normal * DELTA
 	 */
-	private Ray refractedRay (Ray r, GeoPoint geoPoint)
+	private Ray refractedRay (Point3D point, Ray r, Vector n)
 	{
-		return new Ray(geoPoint._point, r.get_direction(), geoPoint._geometry.getNormal(geoPoint._point));
+		return new Ray(point, r.get_direction(), n);
 	}
 	
 	/**
 	 * @param ray ray sent toward geometry
+	 * 
 	 * @return GeoPoint which includes the closest intersection point,
+	 *
 	 * using function findIntersections.
 	 * 
 	 */
