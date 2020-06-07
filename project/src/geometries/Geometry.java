@@ -33,7 +33,7 @@ public abstract class Geometry implements Intersectable
 	 */
 	public Material get_material() 
 	{
-		return new Material(_material.get_kD(), _material.get_kS(), _material.get_nShininess());
+		return new Material(_material.get_kD(), _material.get_kS(), _material.get_nShininess(), _material.get_kT(), _material.get_kR());
 	}
 	/**
 	 * @return the emmission of the geometry

@@ -69,7 +69,7 @@ public class Ray
 		Vector deltaNormal = n.scale(delta);
 		
 		_point = p.add(deltaNormal);
-		_direction = new Vector(direction).normalized();
+		_direction = new Vector(direction).normalize();
 	}
 	
 	/**

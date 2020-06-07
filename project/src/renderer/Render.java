@@ -164,12 +164,16 @@ public class Render
             
             if ((nl > 0 && nv > 0) || (nl < 0 && nv < 0))
             {
-            	if(unshaded(l, Lvector, n, p))
+            	double ktr = transparency(l, Lvector, n, p);
+            	if(ktr * k > MIN_CALC_COLOR_K)
             	{
             		
             		//r = l - 2 (l*n) * n
             		Vector r = Lvector.subtract(n.scale(2* Lvector.dotProduct(n)));
             	
+            		//
+            		Color lightIntensity = l.getIntensity(p._point).scale(ktr);
+            		
             		//add diffuse
             		color = color.add(diffuse(Kd, nl, Il));
             	
@@ -320,13 +324,41 @@ public class Render
 		double lightDistance = light.getDistance(gp._point);
 		
 		for (GeoPoint g : intersections) {
-			if (alignZero(g._point.distance(gp._point) - lightDistance) <= 0 && gp._geometry.get_material().get_kT() == 0)
+			if (alignZero(g._point.distance(gp._point) - lightDistance) <= 0 /*&& gp._geometry.get_material().get_kT() == 0*/)
 					return false;
 		}
 		return true;
 
 	}
 	
+	
+	private double transparency(LightSource ls, Vector l, Vector n, GeoPoint geopoint)
+	{
+		Vector lightDiraction = l.scale(-1).normalize();
+		Vector delta = n.scale(n.dotProduct(lightDiraction)>0?DELTA:-DELTA);
+		Point3D point = geopoint._point.add(delta);
+		Ray lightRay = new Ray(point, lightDiraction, n);
+		
+		List<GeoPoint> intersections = _scene.get_geometries().findIntersections(lightRay);
+		
+		if (intersections == null)
+		{	
+			return 1.0;
+		}
+		
+		double lightDistance = ls.getDistance(geopoint._point);
+		double ktr = 1.0;
+		for (GeoPoint g : intersections) {
+			if (alignZero(g._point.distance(geopoint._point) - lightDistance) <= 0)
+			{		ktr *= g._geometry.get_material().get_kT();
+					if (ktr < MIN_CALC_COLOR_K) 
+					{
+						return 0.0;
+					}
+			}
+		}
+		return ktr;
+	}
 	
 	/**
 	 * @param pointGeo normal to the geometry
