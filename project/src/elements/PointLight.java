@@ -65,7 +65,7 @@ public class PointLight extends Light implements LightSource
 		if (p.equals(_position)) {
             return null;
         }
-        return p.subtract(_position).normalize();
+        return p.subtract(_position).normalized();
 	}
 
 

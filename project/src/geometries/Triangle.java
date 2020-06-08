@@ -73,11 +73,11 @@ public class Triangle extends Polygon
         if (intersections == null) return null;
 
         Point3D p0 = new Point3D(ray.get_point());
-        Vector v = new Vector(ray.get_direction());
+        Vector v = new Vector(ray.get_direction()).normalize();
 
-        Vector v1 = new Vector(_vertices.get(0).subtract(p0));
-        Vector v2 = new Vector(_vertices.get(1).subtract(p0));
-        Vector v3 = new Vector(_vertices.get(2).subtract(p0));
+        Vector v1 = new Vector(_vertices.get(0).subtract(p0)).normalize();
+        Vector v2 = new Vector(_vertices.get(1).subtract(p0)).normalize();
+        Vector v3 = new Vector(_vertices.get(2).subtract(p0)).normalize();
 
         double s1 = v.dotProduct(v1.crossProduct(v2));
         if (Util.isZero(s1)) return null;

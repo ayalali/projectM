@@ -144,10 +144,10 @@ public class Render
 		double Nsh = material.get_nShininess();
 		
 		//geometry normal
-		Vector n = p._geometry.getNormal(p._point);
+		Vector n = p._geometry.getNormal(p._point).normalize();
 		
 		//Vto of camera - vector toward the view plane
-		Vector v = _scene.get_camera().getVtoward();
+		Vector v = _scene.get_camera().getVtoward().normalize();
 		
 		for (LightSource l : lights) 
 		{
@@ -169,7 +169,7 @@ public class Render
             	{
             		
             		//r = l - 2 (l*n) * n
-            		Vector r = Lvector.subtract(n.scale(2* Lvector.dotProduct(n)));
+            		Vector r = Lvector.subtract(n.scale(2* Lvector.dotProduct(n))).normalize();
             	
             		//
             		Color lightIntensity = l.getIntensity(p._point).scale(ktr);
@@ -332,8 +332,16 @@ public class Render
 	}
 	
 	
+	/**
+	 * @param ls current light source
+	 * @param l light's vector
+	 * @param n normal vector on the geometry point
+	 * @param geopoint point and geometry
+	 * @return number between zero to one, which is shadow's power.
+	 */
 	private double transparency(LightSource ls, Vector l, Vector n, GeoPoint geopoint)
 	{
+		//we sends ray from point to light source
 		Vector lightDiraction = l.scale(-1).normalize();
 		Vector delta = n.scale(n.dotProduct(lightDiraction)>0?DELTA:-DELTA);
 		Point3D point = geopoint._point.add(delta);
@@ -341,6 +349,7 @@ public class Render
 		
 		List<GeoPoint> intersections = _scene.get_geometries().findIntersections(lightRay);
 		
+		//there is no geometries between the point and the light source
 		if (intersections == null)
 		{	
 			return 1.0;
@@ -349,6 +358,7 @@ public class Render
 		double lightDistance = ls.getDistance(geopoint._point);
 		double ktr = 1.0;
 		for (GeoPoint g : intersections) {
+			//if the intersection is really between the light and the point
 			if (alignZero(g._point.distance(geopoint._point) - lightDistance) <= 0)
 			{		ktr *= g._geometry.get_material().get_kT();
 					if (ktr < MIN_CALC_COLOR_K) 
@@ -373,7 +383,7 @@ public class Render
 	 */
 	private Ray reflectedRay(Point3D point, Ray r, Vector n)
 	{
-		Vector v = r.get_direction();
+		Vector v = r.get_direction().normalize();
 		double vn = v.dotProduct(n); //(v*n)
 		
 		if (vn == 0) return null;
@@ -397,7 +407,7 @@ public class Render
 	 */
 	private Ray refractedRay (Point3D point, Ray r, Vector n)
 	{
-		return new Ray(point, r.get_direction(), n);
+		return new Ray(point, r.get_direction().normalize(), n);
 	}
 	
 	/**
