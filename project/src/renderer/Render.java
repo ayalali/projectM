@@ -133,6 +133,10 @@ public class Render
 	public Color calcColor(GeoPoint p, Ray ray, int level, double k) 
 	{
 	
+		if (level == 0 || k < MIN_CALC_COLOR_K) {
+            return Color.BLACK;
+        }
+		
 		List<LightSource> lights = _scene.get_lights();
 		
 		// add emission of geometry (Ie)
@@ -142,17 +146,22 @@ public class Render
 		double Kd = material.get_kD();
 		double Ks = material.get_kS();
 		double Nsh = material.get_nShininess();
+		double kr = p._geometry.get_material().get_kR();
+		double kt = p._geometry.get_material().get_kT();
+		double kkt = k * kt;
+		double kkr = k * kr;
 		
 		//geometry normal
 		Vector n = p._geometry.getNormal(p._point).normalize();
 		
 		//Vto of camera - vector toward the view plane
-		Vector v = _scene.get_camera().getVtoward().normalize();
+		Vector v = p._point.subtract(_scene.get_camera().getLocation()).normalize();
+		//Vector v = _scene.get_camera().getVtoward().normalize();
 		
 		for (LightSource l : lights) 
 		{
 			//light direction:
-			Vector Lvector = l.getL(p._point); 
+			Vector Lvector = l.getL(p._point);
 			
 			//light intensity:
 			Color Il = l.getIntensity(p._point);
@@ -185,8 +194,7 @@ public class Render
 		
 		if (level == 1) return Color.BLACK;
 		
-		double kr = p._geometry.get_material().get_kR();
-		double kkr = k * kr;
+		
 		
 		if (kkr > MIN_CALC_COLOR_K) 
 		{
@@ -198,8 +206,7 @@ public class Render
 			}
 		}
 		
-		double kt = p._geometry.get_material().get_kT();
-		double kkt = k * kt;
+		
 		
 		if (kkt > MIN_CALC_COLOR_K)
 		{
@@ -343,7 +350,7 @@ public class Render
 	{
 		//we sends ray from point to light source
 		Vector lightDiraction = l.scale(-1).normalize();
-		Vector delta = n.scale(n.dotProduct(lightDiraction)>0?DELTA:-DELTA);
+		Vector delta = n.scale(n.dotProduct(lightDiraction)>0? DELTA:-DELTA);
 		Point3D point = geopoint._point.add(delta);
 		Ray lightRay = new Ray(point, lightDiraction, n);
 		
