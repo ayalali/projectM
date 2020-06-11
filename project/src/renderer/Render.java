@@ -163,8 +163,7 @@ public class Render
 			//light direction:
 			Vector Lvector = l.getL(p._point);
 			
-			//light intensity:
-			Color Il = l.getIntensity(p._point);
+			
 			
 			double nl = Util.alignZero(n.dotProduct(Lvector));
             double nv = Util.alignZero(n.dotProduct(v));
@@ -176,6 +175,7 @@ public class Render
             	double ktr = transparency(l, Lvector, n, p);
             	if(ktr * k > MIN_CALC_COLOR_K)
             	{
+            		Color Il = l.getIntensity(p._point).scale(ktr);
             		
             		//r = l - 2 (l*n) * n
             		Vector r = Lvector.subtract(n.scale(2* Lvector.dotProduct(n))).normalize();
