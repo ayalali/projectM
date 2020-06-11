@@ -45,7 +45,8 @@ public class RenderTests {
     }
     
     @Test
-    public void basicRenderMultiColorTest() {
+    public void basicRenderMultiColorTest() 
+    {
         Scene scene = new Scene("Test scene");
         scene.set_camera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.set_distance(100);
