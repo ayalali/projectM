@@ -134,25 +134,78 @@ public class ReflectionRefractionTests
                 //orange ball
                 new Sphere(new Color(255, 100, 0), new Material(0.3, 0.3, 60, 0, 0), 7, new Point3D(-22, 38, 120)),
                 
-                //
-                //new Sphere(new Color(0,34,255), new Material(0.2, 0.2, 5, 0.9, 0), 12, new Point3D(0, 73, 100))
-				
+                //light blue ball
+                new Sphere(new Color(84, 196, 159), new Material(0.2, 0.2, 5, 0, 0.3), 20, new Point3D(0, 48, 90)),
                 
-                //picture on the wall
+                //pink ball
+                new Sphere(new Color(204, 0, 0), new Material(0.2, 0.2, 90, 0.5, 0), 12, new Point3D(-18, 70, 67)),
+				
+                //mirror ball
+                new Sphere(new Color(0, 51, 204), new Material(0.2, 0.5, 90, 0, 0.9), 13, new Point3D(25, 32, 115)),
+                
+                //green ball
+                new Sphere(new Color(0, 77, 0), new Material(0.5, 0.2, 70, 0.1, 0), 10, new Point3D(35, 62, 80)),
+                
+//                //*********** lamp
+//                
+//                //light
+//                new Sphere(new Color(255, 255, 0), new Material(0.3, 0.3, 60, 0, 0), 5.5, new Point3D(70, -68, 130)),
+//                
+//                //body
+//                new Triangle(new Color(0,0,0), new Material(0.2, 0.2, 50, 0, 0),
+//                	new Point3D(76, -79, 140), new Point3D(82,-67 , 140), new Point3D(56, -61, 140)), 
+//                new Triangle(new Color(0,0,0), new Material(0.2, 0.2, 50, 0, 0),
+//                    new Point3D(54, -68, 120), new Point3D(78,-72 , 120), new Point3D(74, -81, 120)),
+//                new Triangle(new Color(0,0,0), new Material(0.2, 0.2, 50, 0, 0),
+//                        new Point3D(78,-72 , 120), new Point3D(82,-61, 120), new Point3D(59,-52, 120)),
+//                new Triangle(new Color(0,0,0), new Material(0.2, 0.2, 50, 0, 0),
+//                        new Point3D(78,-72 , 120), new Point3D(79,-71, 120), new Point3D(115,-115, 120)),
+//                
+                
+                //*********** picture on the wall
+                
+                //home
+				new Triangle(new Color(191, 128, 64), new Material(0.2, 0.2, 50, 0, 0),
+						new Point3D(-72, -48, 147), new Point3D(-72,-38 , 147), new Point3D(-62, -38, 147)),
+                new Triangle(new Color(191, 128, 64), new Material(0.2, 0.2, 50, 0, 0),
+                        new Point3D(-72, -48, 147)/*top point*/, new Point3D(-62, -48, 147), new Point3D(-62, -38, 147)),
+                
+                //roof
+                new Triangle(new Color(204, 0, 0), new Material(0.2, 0.2, 50, 0, 0),
+						new Point3D(-77, -48, 147), new Point3D(-57,-48 , 147), new Point3D(-67, -58, 147)),
+                
+                //sun
+                new Sphere(new Color(255, 255, 0), new Material(0, 0, 90, 0, 0), 5, new Point3D(-75, -68, 147)),
+                
+                //grass
+                new Triangle(new Color(51, 153, 51), new Material(0.2, 0.2, 50, 0, 0),
+						new Point3D(-62, -38, 147), new Point3D(-57,-38 , 147), new Point3D(-59, -40, 147)),
+                new Triangle(new Color(51, 153, 51), new Material(0.2, 0.2, 50, 0, 0),
+						new Point3D(-57,-38 , 147), new Point3D(-53, -38, 147), new Point3D(-55, -40, 147)),
+                new Triangle(new Color(51, 153, 51), new Material(0.2, 0.2, 50, 0, 0),
+						new Point3D(-76, -38, 147), new Point3D(-72,-38 , 147), new Point3D(-74, -40, 147)),
+                new Triangle(new Color(51, 153, 51), new Material(0.2, 0.2, 50, 0, 0),
+						new Point3D(-82,-38 , 147), new Point3D(-76, -38, 147), new Point3D(-79, -40, 147)),
                 
                 //brown rectangle
                 new Triangle(new Color(119, 64, 56), new Material(0.2, 0.2, 50, 0, 0),
                         new Point3D(-85, -80, 149)/*top point*/, new Point3D(-85, -35, 149), new Point3D(-50, -35, 149)),
 				new Triangle(new Color(119, 64, 56), new Material(0.2, 0.2, 50, 0, 0),
-                new Point3D(-85, -80, 149), new Point3D(-50,-80 , 149), new Point3D(-50, -35, 149))
+						new Point3D(-85, -80, 149), new Point3D(-50,-80 , 149), new Point3D(-50, -35, 149)),
 				
-				//white rictangle
+				//white rectangle
+				new Triangle(new Color(255, 255, 255), new Material(0.2, 0.2, 50, 0, 0),
+                        new Point3D(-82, -77, 148)/*top point*/, new Point3D(-82, -38, 148), new Point3D(-53, -38, 148)),
+				new Triangle(new Color(255, 255, 255), new Material(0.2, 0.2, 50, 0, 0),
+						new Point3D(-82, -77, 148), new Point3D(-53,-77 , 148), new Point3D(-53, -38, 148))
 				
-                
 				);
 
 		scene.addLights(
 				new DirectionalLight(new Color(196, 255, 200), new Vector(1, 0.5, 1)),
+				
+				new SpotLight(new Color(196, 255, 200),new Point3D(70, -68, 130), new Vector(2,1,0.5), 1, 0.0005, 0.0005),
+				
 				//mini lights on the floor
 				new PointLight(new Color(248, 169, 153), new Point3D(-150, 26, 149), 1, 0.0005, 0.0005),
 				new PointLight(new Color(248, 169, 153), new Point3D(-108, 26, 149), 1, 0.0005, 0.0005),
