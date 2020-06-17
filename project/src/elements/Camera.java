@@ -146,11 +146,19 @@ public class Camera
 		double Kup = 0;
 		double length = 1.01;
 		
+		rays.add(constructRayThroughPixel(nX, nY, j, i, screenDistance, screenWidth, screenHeight));
+		
+		if (numOfRays == 0) 
+		{
+			return rays;
+		}
+		
 		//view plane's center
 		Point3D Pc = new Point3D(_p0.add(_vTo.scale(screenDistance)));
 
 		double Ry = screenHeight/nY;
 		double Rx = screenWidth/nX;
+		double diagonal = Math.sqrt(Rx*Rx + Ry*Ry);
 
 		if (numOfRays >= 8)
 		{
@@ -173,15 +181,47 @@ public class Camera
 		}
 
 		//up left corner
-		for (int k = 0; k < Kdown; k++) 
+		for (double k = diagonal - 1.01; k <= 1.01; k -= diagonal-2.02/Kdown-1) 
 		{
+			double yi =  ((i - nY/2d)*Ry + Ry/k);
+			double xj=   ((j - nX/2d)*Rx + Rx/k);
 			
+			Point3D Pij = new Point3D(Pc);
+
+			if (! Util.isZero(xj))
+			{
+				Pij = new Point3D(Pij.add(_vRight.scale(xj)));
+			}
+			if (! Util.isZero(yi))
+			{
+				Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
+			}
+
+			Vector Vij = new Vector(Pij.subtract(_p0));
+			
+			rays.add(new Ray(Pij, Vij));
 		}
 
 		//up right corner
-		for (int k = 0; k < Kdown; k++) 
+		for (double k = diagonal - 1.01, w = 1.01; k <= 1.01; k -= diagonal-2.02/Kdown-1, w+=diagonal-2.02/Kdown-1) 
 		{
+			double yi =  ((i - nY/2d)*Ry + Ry/w);
+			double xj=   ((j - nX/2d)*Rx + Rx/k);
+			
+			Point3D Pij = new Point3D(Pc);
 
+			if (! Util.isZero(xj))
+			{
+				Pij = new Point3D(Pij.add(_vRight.scale(xj)));
+			}
+			if (! Util.isZero(yi))
+			{
+				Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
+			}
+
+			Vector Vij = new Vector(Pij.subtract(_p0));
+			
+			rays.add(new Ray(Pij, Vij));
 		}
 
 		//left to right

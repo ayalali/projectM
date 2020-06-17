@@ -5,6 +5,7 @@ import static primitives.Util.*;
 
 import scene.Scene;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import elements.*;
@@ -150,13 +151,8 @@ public class Render {
 	 */
 	public void renderImage() 
 	{
-
-		GeoPoint closestPoint = null;
-
+		
 		Camera camera = _scene.get_camera();
-		Intersectable geometries = _scene.get_geometries();
-		java.awt.Color background = _scene.get_background().getColor();
-		AmbientLight ambLight = _scene.get_ambientLight();
 		double  distance = _scene.get_distance();
 
 		int nX = _imageWriter.getNx();
@@ -167,20 +163,16 @@ public class Render {
 		final Pixel thePixel = new Pixel(nY, nX); // Main pixel management object
 		Thread[] threads = new Thread[_threads];
 		for (int i = _threads - 1; i >= 0; --i) 
-		{ // create all threads
+		{ 
+			// create all threads
 			threads[i] = new Thread(() -> 
 			{
-				Pixel pixel = new Pixel(); // Auxiliary thread’s pixel object
+				// Auxiliary thread’s pixel object
+				Pixel pixel = new Pixel(); 
 				while (thePixel.nextPixel(pixel)) 
 				{
-					Ray rays = camera.constructRayThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height);
-					GeoPoint closestPoint2 = findClosestIntersection(rays);
-					if (closestPoint2 == null)					
-					{	_imageWriter.writePixel(pixel.col, pixel.row, background);}
-					else
-					{
-						_imageWriter.writePixel(pixel.col, pixel.row, calcColor(closestPoint2, rays).getColor());
-					}
+					ArrayList<Ray> rays = (camera.constructRaysThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height, 20));
+					_imageWriter.writePixel(pixel.col, pixel.row, averageColor(rays).getColor());
 				}
 			});
 		}
@@ -210,6 +202,35 @@ public class Render {
 	}
 
 
+	private Color averageColor (ArrayList<Ray> rays)
+	{
+		int r = 0, g = 0, b = 0;
+		Color color = Color.BLACK;
+		java.awt.Color background = _scene.get_background().getColor();
+		for (Ray ray : rays) 
+		{
+			GeoPoint closestPoint2 = findClosestIntersection(ray);
+			if (closestPoint2 == null)					
+			{	
+				r += background.getRed();
+				g += background.getGreen();
+				b += background.getBlue();
+			}
+			else
+			{
+				color = new Color(calcColor(closestPoint2, ray));
+				r += color.getColor().getRed();
+				g += color.getColor().getGreen();
+				b += color.getColor().getBlue();
+			}
+		}
+		
+		r/= rays.size();
+		g/= rays.size();
+		b/= rays.size();
+		return new Color(r, g, b);
+	}
+	
 	/**
 	 * @param gp point and its geometry
 	 * @param ray

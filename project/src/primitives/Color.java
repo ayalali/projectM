@@ -133,7 +133,8 @@ public class Color {
      * @param colors one or more other colors to add
      * @return new Color object which is a result of the operation
      */
-    public Color add(Color... colors) {
+    public Color add(Color... colors) 
+    {
         double r = _r, g = _g, b = _b;
         for (Color c : colors) {
             r += c._r;
