@@ -4,7 +4,7 @@ package primitives;
  * Point3D presents a 3D cartesian coordinate point.
  * 
  * 
- * @author ayala
+ * @author ayala and naama
  *
  */
 public class Point3D
@@ -127,9 +127,9 @@ public class Point3D
 	 */
 	public double distanceSquared(Point3D p)
 	{
-		return (get_x().get()-p.get_x().get()) * (get_x().get()-p.get_x().get()) +
-			   (get_y().get()-p.get_y().get()) * (get_y().get()-p.get_y().get()) +
-			   (get_z().get()-p.get_z().get()) * (get_z().get()-p.get_z().get());
+		return (_x._coord-p._x._coord) * (_x._coord-p._x._coord) +
+			   (_y._coord-p._y._coord) * (_y._coord-p._y._coord) +
+			   (_z._coord-p._z._coord) * (_z._coord-p._z._coord);
 	}
 	
 	/**
@@ -155,7 +155,7 @@ public class Point3D
 	 */
 	public Point3D add(Vector vector)
 	{
-		return new Point3D(_x.get() + vector.get_head().get_x().get(),_y.get() + vector.get_head().get_y().get(),_z.get() + vector.get_head().get_z().get());
+		return new Point3D(_x._coord + vector.get_head()._x._coord,_y._coord + vector.get_head()._y._coord,_z._coord + vector.get_head()._z._coord);
 	}
 	
 //	public Point3D add(Point3D p)
@@ -175,6 +175,6 @@ public class Point3D
 	 */
 	public Vector subtract(Point3D p)
 	{
-		return new Vector(_x.get()-p._x.get(), _y.get()-p._y.get(), _z.get()-p._z.get());
+		return new Vector(_x._coord-p._x._coord, _y._coord-p._y._coord, _z._coord-p._z._coord);
 	}
 }

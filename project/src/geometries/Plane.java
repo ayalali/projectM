@@ -36,8 +36,8 @@ public class Plane extends Geometry
 	*/
 	public Plane(Color _emmission, Material _material, Point3D p1, Point3D p2, Point3D p3) {
 		this(p1, p2, p3);
-		this._emmission = new Color(_emmission);
-		this._material = new Material(_material);
+		this._emmission = _emmission;
+		this._material = _material;
 	}
 	/**
 	* @param p1 3D cartesian coordinate on the plane

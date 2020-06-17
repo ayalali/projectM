@@ -33,14 +33,14 @@ public abstract class Geometry implements Intersectable
 	 */
 	public Material get_material() 
 	{
-		return new Material(_material.get_kD(), _material.get_kS(), _material.get_nShininess(), _material.get_kT(), _material.get_kR());
+		return _material;
 	}
 	/**
 	 * @return the emmission of the geometry
 	 */
 	public Color get_emmission() 
 	{
-		return new Color(_emmission);
+		return _emmission;
 	}
 
 	
@@ -48,19 +48,17 @@ public abstract class Geometry implements Intersectable
 	
 	public Geometry(Color emmission) 
 	{
-		this._emmission = new Color(emmission);
-		this._material = new Material(0, 0, 0);
+		this(emmission,new Material(0, 0, 0));
 	}
 	
 	public Geometry(Color _emmission, Material _material) 
 	{
-		this._emmission = new Color(_emmission);
-		this._material = new Material(_material.get_kD(), _material.get_kS(), _material.get_nShininess(), _material.get_kT(), _material.get_kR());
+		this._emmission = _emmission;
+		this._material = _material;
 	}
 
 	public Geometry() {
-		this(Color.BLACK);
-		this._material = new Material(0,0,0);
+		this(Color.BLACK,new Material(0,0,0));
 	}
 
 	//other functions

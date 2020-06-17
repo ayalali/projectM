@@ -209,8 +209,8 @@ public class Render {
 		java.awt.Color background = _scene.get_background().getColor();
 		for (Ray ray : rays) 
 		{
-			GeoPoint closestPoint2 = findClosestIntersection(ray);
-			if (closestPoint2 == null)					
+			GeoPoint closestPoint = findClosestIntersection(ray);
+			if (closestPoint == null)					
 			{	
 				r += background.getRed();
 				g += background.getGreen();
@@ -218,7 +218,7 @@ public class Render {
 			}
 			else
 			{
-				color = new Color(calcColor(closestPoint2, ray));
+				color = new Color(calcColor(closestPoint, ray));
 				r += color.getColor().getRed();
 				g += color.getColor().getGreen();
 				b += color.getColor().getBlue();
