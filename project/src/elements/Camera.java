@@ -1,5 +1,8 @@
 package elements;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -30,8 +33,8 @@ public class Camera
 	 * _vRight pointed to the right side of camera
 	 */
 	private Vector _vRight;
-	
-	
+
+
 	/**
 	 * @param _location location of camera
 	 * @param _Vright 
@@ -40,16 +43,16 @@ public class Camera
 	 */
 	public Camera(Point3D p0, Vector vTo, Vector vUp) 
 	{
-		 if (vUp.dotProduct(vTo) != 0)
-	            throw new IllegalArgumentException("the vectors must be orthogonal");
+		if (vUp.dotProduct(vTo) != 0)
+			throw new IllegalArgumentException("the vectors must be orthogonal");
 
-	        this._p0 = new Point3D(p0);
-	        this._vTo = vTo.normalized();
-	        this._vUp = vUp.normalized();
+		this._p0 = new Point3D(p0);
+		this._vTo = vTo.normalized();
+		this._vUp = vUp.normalized();
 
-	        _vRight = this._vTo.crossProduct(this._vUp).normalize();
+		_vRight = this._vTo.crossProduct(this._vUp).normalize();
 	}
-	
+
 	/**
 	 * @return the location of the camera
 	 */
@@ -75,7 +78,7 @@ public class Camera
 		return new Vector(_vRight);
 	}
 
-	
+
 	/**
 	 * @param nX num of pixels of X line
 	 * @param nY num of pixels of Y line
@@ -105,17 +108,17 @@ public class Camera
 		{
 			throw new IllegalArgumentException("distance cannot be 0");
 		}
-		
+
 		Point3D Pc = new Point3D(_p0.add(_vTo.scale(screenDistance)));
-		
+
 		double Ry = screenHeight/nY;
 		double Rx = screenWidth/nX;
-		
+
 		double yi =  ((i - nY/2d)*Ry + Ry/2);
 		double xj=   ((j - nX/2d)*Rx + Rx/2);
-		
+
 		Point3D Pij = new Point3D(Pc);
-		
+
 		if (! Util.isZero(xj))
 		{
 			Pij = new Point3D(Pij.add(_vRight.scale(xj)));
@@ -124,10 +127,112 @@ public class Camera
 		{
 			Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
 		}
-		
+
 		Vector Vij = new Vector(Pij.subtract(_p0));
-		
+
 		return new Ray(_p0,Vij);
+
+	}
+
+	public ArrayList<Ray> constructRaysThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight, int numOfRays)
+	{
+		if (Util.isZero(screenDistance))
+		{
+			throw new IllegalArgumentException("distance cannot be 0");
+		}
+
+		ArrayList<Ray> rays = new ArrayList<Ray>();
+		int Kdown = 0;
+		double Kup = 0;
+		double length = 1.01;
 		
+		//view plane's center
+		Point3D Pc = new Point3D(_p0.add(_vTo.scale(screenDistance)));
+
+		double Ry = screenHeight/nY;
+		double Rx = screenWidth/nX;
+
+		if (numOfRays >= 8)
+		{
+			Kup = numOfRays / 4;
+			Kdown = numOfRays / 4;
+			if (Kup > Kdown)
+			{
+				Kup = Kdown + 1;
+			}
+
+		}
+		else 
+		{
+			Kup = numOfRays / 2;
+			Kdown = numOfRays / 2;
+			if (Kup > Kdown) 
+			{
+				Kup = Kdown + 1;
+			}
+		}
+
+		//up left corner
+		for (int k = 0; k < Kdown; k++) 
+		{
+			
+		}
+
+		//up right corner
+		for (int k = 0; k < Kdown; k++) 
+		{
+
+		}
+
+		//left to right
+		for (double k = Rx - 1.01; k <= 1.01 && (numOfRays >= 8); k -= Rx-2.02/Kdown-1) 
+		{
+			double yi =  ((i - nY/2d)*Ry + Ry/2);
+			double xj=   ((j - nX/2d)*Rx + Rx/k);
+			
+			Point3D Pij = new Point3D(Pc);
+
+			if (! Util.isZero(xj))
+			{
+				Pij = new Point3D(Pij.add(_vRight.scale(xj)));
+			}
+			if (! Util.isZero(yi))
+			{
+				Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
+			}
+
+			Vector Vij = new Vector(Pij.subtract(_p0));
+			
+			rays.add(new Ray(Pij, Vij));
+		}
+
+		//up to down
+		for (double k = Rx - 1.01; k <= 1.01 && (numOfRays >= 8); k -= Rx-2.02/Kdown-1) 
+		{
+			double yi =  ((i - nY/2d)*Ry + Ry/k);
+			double xj=   ((j - nX/2d)*Rx + Rx/2);
+			
+			Point3D Pij = new Point3D(Pc);
+
+			if (! Util.isZero(xj))
+			{
+				Pij = new Point3D(Pij.add(_vRight.scale(xj)));
+			}
+			if (! Util.isZero(yi))
+			{
+				Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
+			}
+
+			Vector Vij = new Vector(Pij.subtract(_p0));
+			
+			rays.add(new Ray(Pij, Vij));
+		}
+
+
+		
+
+		
+
+		return rays;
 	}
 }
