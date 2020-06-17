@@ -86,7 +86,7 @@ public class Plane extends Geometry
 	public Plane(Color c, Point3D p, Vector v)
 	{
 		this(p,v);
-		this._emmission = new Color(c);
+		this._emmission = c;
 		this._material = new Material(0,0,0);
 	}
 	
@@ -115,7 +115,7 @@ public class Plane extends Geometry
 	*/
 	@Override
 	public Vector getNormal(Point3D p) {
-		return new Vector(_normal).normalize();
+		return _normal.normalized();
 	}
 	
 	/**

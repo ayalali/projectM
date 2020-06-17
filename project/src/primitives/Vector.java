@@ -121,6 +121,7 @@ public class Vector
 	public Vector add(Vector v)
 	{
 		this._head = _head.add(v);
+		System.out.println(this);
 		return this;
 	}
 
@@ -190,7 +191,9 @@ public class Vector
 	 */
 	public double lengthSquared() 
 	{
-		return (_head.distanceSquared(_head));
+		return (_head.get_x()._coord * _head.get_x()._coord +
+				_head.get_y()._coord * _head.get_y()._coord +
+				_head.get_z()._coord * _head.get_z()._coord);
 	}
 
 	/**

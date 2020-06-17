@@ -44,7 +44,7 @@ public class Sphere extends RadialGeometry
 	 */
 	public Sphere(Color color, double r, Point3D c) {
 		this(r,c);
-		this._emmission = new Color(color);
+		this._emmission = color;
 		this._material = new Material(0, 0, 0);
 	}
 	/**
@@ -86,7 +86,7 @@ public class Sphere extends RadialGeometry
 	 */
 	@Override
 	public Vector getNormal(Point3D p) {
-		return new Vector(p.subtract(this._center)).normalize();
+		return p.subtract(this._center).normalized();
 	}
 
 	
@@ -130,11 +130,11 @@ public class Sphere extends RadialGeometry
 		
 		List<GeoPoint> lst = new ArrayList<GeoPoint>();
 		Point3D P0 = r.get_point();
-		Vector V = new Vector(r.get_direction()).normalize();
+		Vector V = r.get_direction().normalized();
 		Vector L;
 		try 
 		{
-			L = new Vector(_center.subtract(P0));//.normalize();
+			L = _center.subtract(P0);//.normalize();
 		}
 		catch (Exception e)
 		{
