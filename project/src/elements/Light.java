@@ -12,7 +12,8 @@ import primitives.Point3D;
  * @author ayala and naama
  *
  */
-public abstract class Light {
+public abstract class Light 
+{
 
 	//fields
 	
@@ -27,7 +28,8 @@ public abstract class Light {
 	/**
 	 * @return _intensity (Ip) color
 	 */
-	public Color get_intensity() {
+	public Color get_intensity() 
+	{
 		return new Color(_intensity);
 	}
 

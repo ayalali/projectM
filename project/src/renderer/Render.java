@@ -169,9 +169,9 @@ public class Render {
 			{
 				// Auxiliary thread’s pixel object
 				Pixel pixel = new Pixel(); 
-				while (thePixel.nextPixel(pixel)) 
+				while (thePixel.nextPixel(pixel))
 				{
-					ArrayList<Ray> rays = (camera.constructRaysThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height, 20));
+					ArrayList<Ray> rays = (camera.constructRaysThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height, 8));
 					_imageWriter.writePixel(pixel.col, pixel.row, averageColor(rays).getColor());
 				}
 			});
@@ -218,7 +218,7 @@ public class Render {
 			}
 			else
 			{
-				color = new Color(calcColor(closestPoint, ray));
+				color = calcColor(closestPoint, ray);
 				r += color.getColor().getRed();
 				g += color.getColor().getGreen();
 				b += color.getColor().getBlue();
@@ -279,9 +279,9 @@ public class Render {
 		List<LightSource> lights = _scene.get_lights();
 
 		// add emission of geometry (Ie)
-		Color color = new Color(p._geometry.get_emmission()); 
+		Color color = p._geometry.get_emmission(); 
 
-		Material material = new Material(p._geometry.get_material());
+		Material material = p._geometry.get_material();
 		double Kd = material.get_kD();
 		double Ks = material.get_kS();
 		double Nsh = material.get_nShininess();
@@ -527,7 +527,7 @@ public class Render {
 	 */
 	private Ray reflectedRay(Point3D point, Ray r, Vector n)
 	{
-		Vector v = r.get_direction().normalize();
+		Vector v = r.get_direction().normalized();
 		double vn = v.dotProduct(n); //(v*n)
 
 		if (vn == 0) return null;
@@ -551,7 +551,7 @@ public class Render {
 	 */
 	private Ray refractedRay (Point3D point, Ray r, Vector n)
 	{
-		return new Ray(point, r.get_direction().normalize(), n);
+		return new Ray(point, r.get_direction().normalized(), n);
 	}
 
 	/**

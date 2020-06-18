@@ -109,7 +109,7 @@ public class Camera
 			throw new IllegalArgumentException("distance cannot be 0");
 		}
 
-		Point3D Pc = new Point3D(_p0.add(_vTo.scale(screenDistance)));
+		Point3D Pc = _p0.add(_vTo.scale(screenDistance));
 
 		double Ry = screenHeight/nY;
 		double Rx = screenWidth/nX;
@@ -121,14 +121,14 @@ public class Camera
 
 		if (! Util.isZero(xj))
 		{
-			Pij = new Point3D(Pij.add(_vRight.scale(xj)));
+			Pij = Pij.add(_vRight.scale(xj));
 		}
 		if (! Util.isZero(yi))
 		{
-			Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
+			Pij = Pij.add(_vUp.scale((-1) * yi));
 		}
 
-		Vector Vij = new Vector(Pij.subtract(_p0));
+		Vector Vij = Pij.subtract(_p0);
 
 		return new Ray(_p0,Vij);
 
@@ -154,7 +154,7 @@ public class Camera
 		}
 		
 		//view plane's center
-		Point3D Pc = new Point3D(_p0.add(_vTo.scale(screenDistance)));
+		Point3D Pc = _p0.add(_vTo.scale(screenDistance));
 
 		double Ry = screenHeight/nY;
 		double Rx = screenWidth/nX;
@@ -190,14 +190,14 @@ public class Camera
 
 			if (! Util.isZero(xj))
 			{
-				Pij = new Point3D(Pij.add(_vRight.scale(xj)));
+				Pij = Pij.add(_vRight.scale(xj));
 			}
 			if (! Util.isZero(yi))
 			{
-				Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
+				Pij = Pij.add(_vUp.scale((-1) * yi));
 			}
 
-			Vector Vij = new Vector(Pij.subtract(_p0));
+			Vector Vij = Pij.subtract(_p0);
 			
 			rays.add(new Ray(Pij, Vij));
 		}
@@ -212,14 +212,14 @@ public class Camera
 
 			if (! Util.isZero(xj))
 			{
-				Pij = new Point3D(Pij.add(_vRight.scale(xj)));
+				Pij = Pij.add(_vRight.scale(xj));
 			}
 			if (! Util.isZero(yi))
 			{
-				Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
+				Pij = Pij.add(_vUp.scale((-1) * yi));
 			}
 
-			Vector Vij = new Vector(Pij.subtract(_p0));
+			Vector Vij = Pij.subtract(_p0);
 			
 			rays.add(new Ray(Pij, Vij));
 		}
@@ -234,14 +234,14 @@ public class Camera
 
 			if (! Util.isZero(xj))
 			{
-				Pij = new Point3D(Pij.add(_vRight.scale(xj)));
+				Pij = Pij.add(_vRight.scale(xj));
 			}
 			if (! Util.isZero(yi))
 			{
-				Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
+				Pij = Pij.add(_vUp.scale((-1) * yi));
 			}
 
-			Vector Vij = new Vector(Pij.subtract(_p0));
+			Vector Vij = Pij.subtract(_p0);
 			
 			rays.add(new Ray(Pij, Vij));
 		}
@@ -256,14 +256,14 @@ public class Camera
 
 			if (! Util.isZero(xj))
 			{
-				Pij = new Point3D(Pij.add(_vRight.scale(xj)));
+				Pij = Pij.add(_vRight.scale(xj));
 			}
 			if (! Util.isZero(yi))
 			{
-				Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
+				Pij = Pij.add(_vUp.scale((-1) * yi));
 			}
 
-			Vector Vij = new Vector(Pij.subtract(_p0));
+			Vector Vij = Pij.subtract(_p0);
 			
 			rays.add(new Ray(Pij, Vij));
 		}
