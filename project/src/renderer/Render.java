@@ -171,7 +171,7 @@ public class Render {
 				Pixel pixel = new Pixel(); 
 				while (thePixel.nextPixel(pixel))
 				{
-					ArrayList<Ray> rays = (camera.constructRaysThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height, 8));
+					ArrayList<Ray> rays = (camera.constructRaysThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height, 4));
 					_imageWriter.writePixel(pixel.col, pixel.row, averageColor(rays).getColor());
 				}
 			});
@@ -205,7 +205,7 @@ public class Render {
 	private Color averageColor (ArrayList<Ray> rays)
 	{
 		int r = 0, g = 0, b = 0;
-		Color color = Color.BLACK;
+		Color color;
 		java.awt.Color background = _scene.get_background().getColor();
 		for (Ray ray : rays) 
 		{

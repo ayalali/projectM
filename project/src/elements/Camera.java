@@ -134,6 +134,17 @@ public class Camera
 
 	}
 
+	/**
+	 * @param nX
+	 * @param nY
+	 * @param j
+	 * @param i
+	 * @param screenDistance
+	 * @param screenWidth
+	 * @param screenHeight
+	 * @param numOfRays
+	 * @return
+	 */
 	public ArrayList<Ray> constructRaysThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight, int numOfRays)
 	{
 		if (Util.isZero(screenDistance))
@@ -180,8 +191,14 @@ public class Camera
 			}
 		}
 
+		
+		rays.add(constructRayThroughPixel(2*nX,2*nY, 2*j, 2*i,screenDistance, screenWidth,screenHeight));
+		rays.add(constructRayThroughPixel(2*nX,2*nY, 2*j+1, 2*i,screenDistance, screenWidth,screenHeight));
+		rays.add(constructRayThroughPixel(2*nX,2*nY, 2*j, 2*i+1,screenDistance, screenWidth,screenHeight));
+		rays.add(constructRayThroughPixel(2*nX,2*nY, 2*j+1, 2*i+1,screenDistance, screenWidth,screenHeight));
+
 		//up left corner
-		for (double k = diagonal - 1.01; k <= 1.01; k -= diagonal-2.02/Kdown-1) 
+		/*for (double k = diagonal - 1.01; k <= 1.01; k -= diagonal-2.02/Kdown-1) 
 		{
 			double yi =  ((i - nY/2d)*Ry + Ry/k);
 			double xj=   ((j - nX/2d)*Rx + Rx/k);
@@ -222,57 +239,51 @@ public class Camera
 			Vector Vij = Pij.subtract(_p0);
 			
 			rays.add(new Ray(Pij, Vij));
-		}
+		}*/
 
 		//left to right
-		for (double k = Rx - 1.01; k <= 1.01 && (numOfRays >= 8); k -= Rx-2.02/Kdown-1) 
-		{
-			double yi =  ((i - nY/2d)*Ry + Ry/2);
-			double xj=   ((j - nX/2d)*Rx + Rx/k);
-			
-			Point3D Pij = new Point3D(Pc);
-
-			if (! Util.isZero(xj))
-			{
-				Pij = Pij.add(_vRight.scale(xj));
-			}
-			if (! Util.isZero(yi))
-			{
-				Pij = Pij.add(_vUp.scale((-1) * yi));
-			}
-
-			Vector Vij = Pij.subtract(_p0);
-			
-			rays.add(new Ray(Pij, Vij));
-		}
-
-		//up to down
-		for (double k = Rx - 1.01; k <= 1.01 && (numOfRays >= 8); k -= Rx-2.02/Kdown-1) 
-		{
-			double yi =  ((i - nY/2d)*Ry + Ry/k);
-			double xj=   ((j - nX/2d)*Rx + Rx/2);
-			
-			Point3D Pij = new Point3D(Pc);
-
-			if (! Util.isZero(xj))
-			{
-				Pij = Pij.add(_vRight.scale(xj));
-			}
-			if (! Util.isZero(yi))
-			{
-				Pij = Pij.add(_vUp.scale((-1) * yi));
-			}
-
-			Vector Vij = Pij.subtract(_p0);
-			
-			rays.add(new Ray(Pij, Vij));
-		}
-
-
-		
-
-		
-
+//		for (double k = Rx - 1.01; k <= 1.01 && (numOfRays >= 8); k -= Rx-2.02/Kdown-1) 
+//		{
+//			double yi =  ((i - nY/2d)*Ry + Ry/2);
+//			double xj=   ((j - nX/2d)*Rx + Rx/k);
+//			
+//			Point3D Pij = new Point3D(Pc);
+//
+//			if (! Util.isZero(xj))
+//			{
+//				Pij = Pij.add(_vRight.scale(xj));
+//			}
+//			if (! Util.isZero(yi))
+//			{
+//				Pij = Pij.add(_vUp.scale((-1) * yi));
+//			}
+//
+//			Vector Vij = Pij.subtract(_p0);
+//			
+//			rays.add(new Ray(Pij, Vij));
+//		}
+//
+//		//up to down
+//		for (double k = Rx - 1.01; k <= 1.01 /*&& (numOfRays >= 8)*/; k -= Rx-2.02/Kdown-1) 
+//		{
+//			double yi =  ((i - nY/2d)*Ry + Ry/k);
+//			double xj=   ((j - nX/2d)*Rx + Rx/2);
+//			
+//			Point3D Pij = new Point3D(Pc);
+//
+//			if (! Util.isZero(xj))
+//			{
+//				Pij = Pij.add(_vRight.scale(xj));
+//			}
+//			if (! Util.isZero(yi))
+//			{
+//				Pij = Pij.add(_vUp.scale((-1) * yi));
+//			}
+//
+//			Vector Vij = Pij.subtract(_p0);
+//			
+//			rays.add(new Ray(Pij, Vij));
+//		}
 		return rays;
 	}
 }
