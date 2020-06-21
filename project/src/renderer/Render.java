@@ -163,7 +163,7 @@ public class Render {
 		final Pixel thePixel = new Pixel(nY, nX); // Main pixel management object
 		Thread[] threads = new Thread[_threads];
 		for (int i = _threads - 1; i >= 0; --i) 
-		{ 
+		{
 			// create all threads
 			threads[i] = new Thread(() -> 
 			{
@@ -171,7 +171,7 @@ public class Render {
 				Pixel pixel = new Pixel(); 
 				while (thePixel.nextPixel(pixel))
 				{
-					ArrayList<Ray> rays = (camera.constructRaysThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height, 4));
+					ArrayList<Ray> rays = (camera.constructRaysThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height, 9));
 					_imageWriter.writePixel(pixel.col, pixel.row, averageColor(rays).getColor());
 				}
 			});
