@@ -187,8 +187,8 @@ public class Camera
 		for (int k = 0; k < numOfRays; k++) 
 		{
 			Random random = new Random();
-			int addToI = random.nextInt(sqrt-1);
-			int addToJ = random.nextInt(sqrt-1);
+			int addToI = random.nextInt(sqrt);
+			int addToJ = random.nextInt(sqrt);
 			if (!savedRays[addToI][addToJ])
 			{
 				rays.add(constructRayThroughPixel(sqrt*nX,sqrt*nY, sqrt*j+addToJ, sqrt*i+addToI,screenDistance, screenWidth,screenHeight));

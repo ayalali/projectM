@@ -8,6 +8,7 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+
 /**
  * 
  * Triangle represents a two-dimensional triangle in 3D Cartesian coordinate
@@ -86,7 +87,11 @@ public class Triangle extends Polygon
         double s3 = v.dotProduct(v3.crossProduct(v1));
         if (Util.isZero(s3)) return null;
 
-        intersections.get(0)._geometry = this;
+        //intersections.get(0)._geometry = this;
+        for (GeoPoint geo : intersections) 
+        {
+            geo._geometry = this;
+        }
         
         return ((s1 > 0 && s2 > 0 && s3 > 0) || (s1 < 0 && s2 < 0 && s3 < 0)) ? intersections : null;
 

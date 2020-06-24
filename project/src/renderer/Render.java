@@ -171,7 +171,7 @@ public class Render {
 				Pixel pixel = new Pixel(); 
 				while (thePixel.nextPixel(pixel))
 				{
-					ArrayList<Ray> rays = (camera.constructRaysThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height, 0));
+					ArrayList<Ray> rays = (camera.constructRaysThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height, 80));
 					_imageWriter.writePixel(pixel.col, pixel.row, averageColor(rays).getColor());
 				}
 			});

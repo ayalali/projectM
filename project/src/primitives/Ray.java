@@ -39,7 +39,7 @@ public class Ray
 	public Ray(Point3D _point, Vector _direction) 
 	{
 		this._point = new Point3D(_point);
-		this._direction = _direction.normalized();
+		this._direction = new Vector(_direction.normalized());
 	}
 	
 	/**
@@ -122,7 +122,7 @@ public class Ray
      */
     public Point3D getPoint(double t) {
     	if(isZero(t))
-    		return _point;
+    		return new Point3D(_point);
     	return _point.add(_direction.scale(t));
     }
 	
