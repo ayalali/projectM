@@ -285,13 +285,13 @@ public class Render {
 		double Kd = material.get_kD();
 		double Ks = material.get_kS();
 		double Nsh = material.get_nShininess();
-		double kr = p._geometry.get_material().get_kR();
-		double kt = p._geometry.get_material().get_kT();
+		double kr = material.get_kR();
+		double kt = material.get_kT();
 		double kkt = k * kt;
 		double kkr = k * kr;
 
 		//geometry normal
-		Vector n = p._geometry.getNormal(p._point).normalize();
+		Vector n = p._geometry.getNormal(p._point);
 
 		//Vto of camera - vector toward the view plane
 		Vector v = p._point.subtract(_scene.get_camera().getLocation()).normalize();
@@ -332,8 +332,7 @@ public class Render {
 		if (level == 1) return Color.BLACK;
 
 
-
-		if (kkr > MIN_CALC_COLOR_K) 
+		if (kkr > MIN_CALC_COLOR_K)
 		{
 			Ray reflectedRay = reflectedRay(p._point, ray, n);
 			GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
@@ -342,7 +341,6 @@ public class Render {
 				color = color.add(calcColor(reflectedPoint, reflectedRay, level-1, kkr).scale(kr));
 			}
 		}
-
 
 
 		if (kkt > MIN_CALC_COLOR_K)
@@ -407,12 +405,13 @@ public class Render {
 		double minDst = Double.MAX_VALUE;
 
 		Point3D p0 = this._scene.get_camera().getLocation();
-
+		double distance = 0;
+		
 		for (GeoPoint pt: points ) {
-			double distance = p0.distance(pt._point);
+			distance = p0.distance(pt._point);
 			if (distance < minDst){
 				minDst = distance;
-				clstPoint = new GeoPoint(pt._geometry,pt._point);
+				clstPoint = pt;
 			}
 		}
 		return  clstPoint;
@@ -527,7 +526,7 @@ public class Render {
 	 */
 	private Ray reflectedRay(Point3D point, Ray r, Vector n)
 	{
-		Vector v = r.get_direction().normalized();
+		Vector v = r.get_direction()/*.normalized()*/;
 		double vn = v.dotProduct(n); //(v*n)
 
 		if (vn == 0) return null;
@@ -584,7 +583,7 @@ public class Render {
 			double distance = p.distance(geoPoint._point);
 			if (distance < closestDistance) 
 			{
-				closestPoint = new GeoPoint(geoPoint._geometry, geoPoint._point);
+				closestPoint = geoPoint;
 				closestDistance = distance;
 			}
 		}
