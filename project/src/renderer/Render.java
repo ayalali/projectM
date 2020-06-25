@@ -171,8 +171,8 @@ public class Render {
 				Pixel pixel = new Pixel(); 
 				while (thePixel.nextPixel(pixel))
 				{
-					ArrayList<Ray> rays = (camera.constructRaysThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height, 0));
-					_imageWriter.writePixel(pixel.col, pixel.row, averageColor(rays).getColor());
+					//ArrayList<Ray> rays = (camera.constructRaysThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height, 0));
+					_imageWriter.writePixel(pixel.col, pixel.row, pixelColor(nX, nY, pixel.col, pixel.row, distance, width, height, 0).getColor());
 				}
 			});
 		}
@@ -354,11 +354,174 @@ public class Render {
 		}
 
 		return new Color(color);
-
-
 	}
 
 
+	/**
+	 * 
+	 * sends rays through the corners of the pixel. if the colors are different - he divide 
+	 * the pixel to four parts and sends rays through the corners of each part...
+	 * he keeps doing that until the colors are equals or until he already divide three times. 
+	 * 
+	 * 
+	 * @param nX num of pixels of X line
+	 * @param nY num of pixels of Y line
+	 * @param j last coordinate of target pixel
+	 * @param i first coordinate of target pixel
+	 * @param screenDistance distance between screen and camera
+	 * @param screenWidth width of screen - length
+	 * @param screenHeight height of screen - length
+	 * 
+	 * @return color object, contains pixel (i,j) color.
+	 */
+	public Color pixelColor(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight, int level)
+	{
+		Color upRight = Color.BLACK;
+		Color upLeft = Color.BLACK;
+		Color downRight = Color.BLACK;
+		Color downLeft = Color.BLACK;
+		
+		Camera camera = _scene.get_camera();
+		GeoPoint closestPoint = null;
+		
+		Point3D Pc = camera.getLocation().add(camera.getVtoward().scale(screenDistance));
+
+		double Ry = screenHeight/nY;
+		double Rx = screenWidth/nX;
+
+		//up left corner
+		double yi =  ((i - nY/2)*Ry);
+		double xj=   ((j - nX/2)*Rx);
+		
+		Point3D Pij = new Point3D(Pc);
+
+		if (! Util.isZero(xj))
+		{
+			Pij = Pij.add(camera.getVright().scale(xj));
+		}
+		if (! Util.isZero(yi))
+		{
+			Pij = Pij.add(camera.getVup().scale((-1) * yi));
+		}
+
+		Vector Vij = Pij.subtract(camera.getLocation());
+		
+		closestPoint = findClosestIntersection(new Ray(Pij, Vij));
+		
+		if (closestPoint == null) 
+		{
+			upLeft = _scene.get_background();
+		}
+		else 
+		{
+			upLeft = calcColor(closestPoint, new Ray(Pij, Vij));
+			closestPoint = null;
+		}
+		
+		//up right corner
+		yi =  ((i - nY/2)*Ry);
+		xj=   ((j - nX/2)*Rx + Rx);
+		
+		Pij = new Point3D(Pc);
+
+		if (! Util.isZero(xj))
+		{
+			Pij = Pij.add(camera.getVright().scale(xj));
+		}
+		if (! Util.isZero(yi))
+		{
+			Pij = Pij.add(camera.getVup().scale((-1) * yi));
+		}
+
+		Vij = Pij.subtract(camera.getLocation());
+		
+		closestPoint = findClosestIntersection(new Ray(Pij, Vij));
+		
+		if (closestPoint == null) 
+		{
+			upRight = _scene.get_background();
+		}
+		else 
+		{
+			upRight = calcColor(closestPoint, new Ray(Pij, Vij));
+			closestPoint = null;
+		}
+				
+		//down left corner
+		yi =  ((i - nY/2)*Ry + Ry);
+		xj=   ((j - nX/2)*Rx);
+		
+		Pij = new Point3D(Pc);
+
+		if (! Util.isZero(xj))
+		{
+			Pij = Pij.add(camera.getVright().scale(xj));
+		}
+		if (! Util.isZero(yi))
+		{
+			Pij = Pij.add(camera.getVup().scale((-1) * yi));
+		}
+
+		Vij = Pij.subtract(camera.getLocation());
+		
+		closestPoint = findClosestIntersection(new Ray(Pij, Vij));
+		
+		if (closestPoint == null) 
+		{
+			downLeft = _scene.get_background();
+		}
+		else 
+		{
+			downLeft = calcColor(closestPoint, new Ray(Pij, Vij));
+			closestPoint = null;
+		}
+				
+		//down right corner
+		yi =  ((i - nY/2)*Ry + Ry);
+		xj=   ((j - nX/2)*Rx + Rx);
+		
+		Pij = new Point3D(Pc);
+
+		if (! Util.isZero(xj))
+		{
+			Pij = Pij.add(camera.getVright().scale(xj));
+		}
+		if (! Util.isZero(yi))
+		{
+			Pij = Pij.add(camera.getVup().scale((-1) * yi));
+		}
+
+		Vij = Pij.subtract(camera.getLocation());
+		
+		closestPoint = findClosestIntersection(new Ray(Pij, Vij));
+		
+		if (closestPoint == null) 
+		{
+			downRight = _scene.get_background();
+		}
+		else 
+		{
+			downRight = calcColor(closestPoint, new Ray(Pij, Vij));
+			closestPoint = null;
+		}
+				
+		if (upLeft.equals(upRight) && upRight.equals(downLeft) && downLeft.equals(downRight)) 
+		{
+			return new Color(upLeft);
+		}
+		
+		if (level < 3) 
+		{
+			upLeft = pixelColor(2*nX, 2*nY, 2*j, 2*i, screenDistance, screenWidth, screenHeight, level+1);
+			upRight = pixelColor(2*nX, 2*nY, 2*j, 2*i+1, screenDistance, screenWidth, screenHeight, level+1);
+			downLeft = pixelColor(2*nX, 2*nY, 2*j+1, 2*i, screenDistance, screenWidth, screenHeight, level+1);
+			downRight = pixelColor(2*nX, 2*nY, 2*j+1, 2*i+1, screenDistance, screenWidth, screenHeight, level+1);
+		}
+		
+		return (upLeft.add(upRight).add(downLeft).add(downRight)).reduce(4);
+	}
+	
+	
 	/**
 	 * @param Kd diffuse power (material field)
 	 * @param l light direction (normalized vector, getL)
@@ -561,7 +724,7 @@ public class Render {
 	 * using function findIntersections.
 	 * 
 	 */
-	private GeoPoint findClosestIntersection(Ray ray)
+	public GeoPoint findClosestIntersection(Ray ray)
 	{
 		if (ray == null) 
 		{

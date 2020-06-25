@@ -52,14 +52,17 @@ public class Geometries implements Intersectable {
 	public List<GeoPoint> findIntersections(Ray r) 
 	{
 		List<GeoPoint> intersections = null;
+		List<GeoPoint> tempIntersections = null;
 
-		for (Intersectable g : _geometries) 
+		for (Intersectable g : _geometries)
 		{
-            List<GeoPoint> tempIntersections = g.findIntersections(r);
+            tempIntersections = g.findIntersections(r);
             if (tempIntersections != null) 
             {
                 if (intersections == null)
+                {
                     intersections = new ArrayList<GeoPoint>();
+                }
                 intersections.addAll(tempIntersections);
             }
         }

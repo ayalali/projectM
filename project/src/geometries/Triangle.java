@@ -96,6 +96,12 @@ public class Triangle extends Polygon
         return ((s1 > 0 && s2 > 0 && s3 > 0) || (s1 < 0 && s2 < 0 && s3 < 0)) ? intersections : null;
 
     }
+	
+	@Override
+	public String toString()
+	{
+		return "triangle";
+	}
 }
 
 

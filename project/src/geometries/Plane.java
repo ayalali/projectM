@@ -133,11 +133,12 @@ public class Plane extends Geometry
 	*
 	*/
 	@Override
-	public List<GeoPoint> findIntersections(Ray r) {
-		Vector V;
+	public List<GeoPoint> findIntersections(Ray r) 
+	{
+		Vector V = null;
         try
         {
-            V = new Vector(_p.subtract(r.get_point()));
+            V = _p.subtract(r.get_point());
         }
         catch (IllegalArgumentException e)
         {

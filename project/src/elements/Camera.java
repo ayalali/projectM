@@ -4,9 +4,12 @@ import java.awt.List;
 import java.util.ArrayList;
 import java.util.Random;
 
+import geometries.Intersectable.GeoPoint;
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
+import renderer.Render;
 import primitives.Util;
 
 /**
@@ -176,6 +179,8 @@ public class Camera
 			}
 		}
 		
+		
+		
 		//center ray
 		rays.add(constructRayThroughPixel(nX, nY, j, i, screenDistance, screenWidth, screenHeight));
 		
@@ -201,5 +206,7 @@ public class Camera
 		}
 		return rays;
 	}
+	
+	
 	
 }
