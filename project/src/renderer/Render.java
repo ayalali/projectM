@@ -90,23 +90,27 @@ public class Render {
 		 */
 		private synchronized int nextP(Pixel target) 
 		{
-			++col; ++_counter;
-			if (col < _maxCols) 
-			{
-				target.row = this.row; target.col = this.col;
-				if (_print && _counter == _nextCounter) 
-				{
-					++_percents;_nextCounter = _pixels * (_percents + 1) / 100; return _percents;
+			++col;
+			++_counter;
+			if (col < _maxCols) {
+				target.row = this.row;
+				target.col = this.col;
+				if (_print && _counter == _nextCounter) {
+					++_percents;
+					_nextCounter = _pixels * (_percents + 1) / 100;
+					return _percents;
 				}
 				return 0;
 			}
 			++row;
-			if (row < _maxRows) 
-			{
+			if (row < _maxRows) {
 				col = 0;
-				if (_print && _counter == _nextCounter) 
-				{
-					++_percents; _nextCounter = _pixels * (_percents + 1) / 100; return _percents;
+				target.row = this.row;
+				target.col = this.col;
+				if (_print && _counter == _nextCounter) {
+					++_percents;
+					_nextCounter = _pixels * (_percents + 1) / 100;
+					return _percents;
 				}
 				return 0;
 			}
@@ -317,9 +321,6 @@ public class Render {
 					//r = l - 2 (l*n) * n
 					Vector r = Lvector.subtract(n.scale(2* Lvector.dotProduct(n))).normalize();
 
-					//
-					Color lightIntensity = l.getIntensity(p._point).scale(ktr);
-
 					//add diffuse
 					color = color.add(diffuse(Kd, nl, Il));
 
@@ -505,12 +506,12 @@ public class Render {
 			closestPoint = null;
 		}
 				
-		if (upLeft.equals(upRight) && upRight.equals(downLeft) && downLeft.equals(downRight)) 
+		if (upLeft.equalEye(upRight,DELTA) && upRight.equalEye(downLeft,DELTA) && downLeft.equalEye(downRight, DELTA)) 
 		{
 			return new Color(upLeft);
 		}
 		
-		if (level < 3) 
+		if (level <= 4) 
 		{
 			upLeft = pixelColor(2*nX, 2*nY, 2*j, 2*i, screenDistance, screenWidth, screenHeight, level+1);
 			upRight = pixelColor(2*nX, 2*nY, 2*j, 2*i+1, screenDistance, screenWidth, screenHeight, level+1);

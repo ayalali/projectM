@@ -173,4 +173,14 @@ public class Color {
         return new Color(r, g, b);
     }
 
+    /**
+     * @param c color 
+     * @param delta how close it can be
+     * 
+     * @return if c close enough to this according to delta.
+     */
+    public boolean equalEye(Color c, double delta)
+    {
+    	return Math.abs(this._r-c._r)<delta && Math.abs(this._g-c._g)<delta && Math.abs(this._b-c._b)<delta;
+    }
 }
