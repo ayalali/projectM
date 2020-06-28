@@ -68,7 +68,8 @@ public class Triangle extends Polygon
 	*
 	*/
 	@Override
-    public List<GeoPoint> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) 
+	{
         List<GeoPoint> intersections = _plane.findIntersections(ray);
         
         if (intersections == null) return null;
